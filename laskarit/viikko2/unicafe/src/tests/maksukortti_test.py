@@ -12,6 +12,10 @@ class TestMaksukortti(unittest.TestCase):
     def test_luodulla_kortilla_pyydetty_saldo(self):
         self.assertEqual(self.maksukortti.saldo_euroina(), 10)
 
+    def test_luodun_kortin_merkkijonoesitys_on_oikea(self):
+        self.assertEqual(str(self.maksukortti),
+                         "Kortilla on rahaa 10.00 euroa")
+
     def test_rahan_lataaminen_lisaa_saldoa_pyydetyn_maaran(self):
         self.maksukortti.lataa_rahaa(350)
         self.assertEqual(self.maksukortti.saldo_euroina(), 13.5)
