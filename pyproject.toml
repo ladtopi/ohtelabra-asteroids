@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "ohtelabra-asteroids"
+version = "0.1.0"
+description = "A simple asteroids clone"
+authors = ["ladtopi <180638679+ladtopi@users.noreply.github.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
