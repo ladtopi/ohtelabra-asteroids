@@ -29,6 +29,11 @@ def main():
             ship.rotate_right()
         if keys[pygame.K_LEFT]:
             ship.rotate_left()
+        if keys[pygame.K_UP]:
+            ship.thrust()
+
+        ship.move()
+
         display.fill((0, 0, 0))
         objects.draw(display)
         pygame.display.flip()
