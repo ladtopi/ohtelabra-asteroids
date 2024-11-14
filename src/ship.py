@@ -17,22 +17,21 @@ class Ship(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x-self.rect.width//2
         self.rect.y = y-self.rect.height//2
-        self.rotation_speed = 1
-        self.acceleration = 0.005
+        self.acceleration = 0.002
         self.friction = 0.0005
         self.screen_width, self.screen_height = screen_size
 
-    def rotate_right(self):
-        if self.angle < self.rotation_speed:
+    def rotate_right(self, degrees=1):
+        if self.angle < degrees:
             self.angle += 360
-        self.angle -= self.rotation_speed
+        self.angle -= degrees
         self.image = pygame.transform.rotate(SHIP_IMAGE, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
 
-    def rotate_left(self):
-        if self.angle > 360 - self.rotation_speed:
+    def rotate_left(self, degrees=1):
+        if self.angle > 360 - degrees:
             self.angle -= 360
-        self.angle += self.rotation_speed
+        self.angle += degrees
         self.image = pygame.transform.rotate(SHIP_IMAGE, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
 
