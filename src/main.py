@@ -1,4 +1,5 @@
 import pygame
+from asteroid import Asteroid
 from ship import Ship
 
 
@@ -11,7 +12,11 @@ def main():
 
     objects = pygame.sprite.Group()
     ship = Ship(W/2, H/2, (W, H))
+    asteroid1 = Asteroid(100, 100, pygame.Vector2(0.05, 0.25), (W, H))
+    asteroid2 = Asteroid(600, 200, pygame.Vector2(-.12, .1), (W, H))
     objects.add(ship)
+    objects.add(asteroid1)
+    objects.add(asteroid2)
     objects.draw(display)
     pygame.init()
 
@@ -33,6 +38,8 @@ def main():
             ship.thrust()
 
         ship.update()
+        asteroid1.update()
+        asteroid2.update()
 
         display.fill((0, 0, 0))
         objects.draw(display)

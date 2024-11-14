@@ -2,7 +2,7 @@ import pygame
 import pygame.gfxdraw
 
 SHIP_SIZE = 40
-SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE))
+SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
 pygame.gfxdraw.filled_trigon(SHIP_IMAGE, 0, SHIP_SIZE, SHIP_SIZE //
                              2, 0, SHIP_SIZE, SHIP_SIZE, (255, 255, 255))
 
