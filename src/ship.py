@@ -8,7 +8,7 @@ pygame.gfxdraw.filled_trigon(SHIP_IMAGE, 0, SHIP_SIZE, SHIP_SIZE //
 
 
 class Ship(pygame.sprite.Sprite):
-    def __init__(self, x=0, y=0):
+    def __init__(self, x=0, y=0, screen_size=(800, 600)):
         super().__init__()
         self.angle = 0
         self.velocity = pygame.Vector2(0, 0)
@@ -20,6 +20,7 @@ class Ship(pygame.sprite.Sprite):
         self.rotation_speed = 1
         self.acceleration = 0.005
         self.friction = 0.0005
+        self.screen_width, self.screen_height = screen_size
 
     def rotate_right(self):
         if self.angle < self.rotation_speed:
@@ -42,4 +43,15 @@ class Ship(pygame.sprite.Sprite):
     def update(self):
         self.velocity *= (1-self.friction)
         self.position += self.velocity
+        self.screen_wrap()
         self.rect.center = self.position
+
+    def screen_wrap(self):
+        if self.position.x + self.rect.width//2 < 0:
+            self.position.x = self.screen_width + self.rect.width//2
+        if self.position.x - self.rect.width//2 > self.screen_width:
+            self.position.x = -self.rect.width//2
+        if self.position.y + self.rect.height//2 < 0:
+            self.position.y = self.screen_height + self.rect.height//2
+        if self.position.y - self.rect.height//2 > self.screen_height:
+            self.position.y = -self.rect.height//2

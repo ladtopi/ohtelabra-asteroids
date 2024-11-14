@@ -10,7 +10,7 @@ def main():
     pygame.display.set_caption("Pysteroids")
 
     objects = pygame.sprite.Group()
-    ship = Ship(W/2, H/2)
+    ship = Ship(W/2, H/2, (W, H))
     objects.add(ship)
     objects.draw(display)
     pygame.init()
