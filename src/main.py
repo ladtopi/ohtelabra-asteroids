@@ -23,8 +23,15 @@ def main():
                 running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 running = False
-        # display.fill((0,0,0))
-        pygame.display.update()
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RIGHT]:
+            ship.rotate_right()
+        if keys[pygame.K_LEFT]:
+            ship.rotate_left()
+        display.fill((0, 0, 0))
+        objects.draw(display)
+        pygame.display.flip()
 
     pygame.quit()
 
