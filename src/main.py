@@ -32,7 +32,7 @@ def main():
         if keys[pygame.K_UP]:
             ship.thrust()
 
-        ship.move()
+        ship.update()
 
         display.fill((0, 0, 0))
         objects.draw(display)
