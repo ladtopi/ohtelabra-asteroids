@@ -6,3 +6,4 @@ Tämä projekti sisältää kloonin klassisesta Asteroids-pelistä, jonka toteut
 
 - [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
 - [Työaikakirjanpito](dokumentaatio/tuntikirjanpito.md)
+- [Changelog](dokumentaatio/changelog.md)
