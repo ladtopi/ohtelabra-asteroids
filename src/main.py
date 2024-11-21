@@ -12,12 +12,15 @@ def main():
 
     objects = pygame.sprite.Group()
     bullets = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     ship = Ship(x=w/2, y=h/2, display=display)
     asteroid1 = Asteroid(x=100, y=100, vx=0.05, vy=0.25, display=display)
     asteroid2 = Asteroid(x=600, y=200, vx=-.12, vy=.1, display=display)
     objects.add(ship)
     objects.add(asteroid1)
     objects.add(asteroid2)
+    asteroids.add(asteroid1)
+    asteroids.add(asteroid2)
     objects.draw(display)
     pygame.init()
 
@@ -44,6 +47,11 @@ def main():
 
         for obj in objects:
             obj.update()
+
+        for asteroid in pygame.sprite.groupcollide(asteroids, bullets, True, True):
+            frags = asteroid.explode()
+            objects.add(*frags)
+            asteroids.add(*frags)
 
         display.fill((0, 0, 0))
         objects.draw(display)
