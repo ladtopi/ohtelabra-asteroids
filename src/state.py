@@ -5,13 +5,28 @@ from constants import Event, FontFamily
 from ship import Ship
 
 
+class GameScore:
+    def __init__(self):
+        self.score = 0
+
+    def add(self, points):
+        self.score += points
+
+    def reset(self):
+        self.score = 0
+
+    def __str__(self):
+        return f"Score: {self.score}"
+
+
 class GameState:
     """
     Abstract base class for game states.
     """
 
-    def __init__(self, display):
+    def __init__(self, display, game_score):
         self.display = display
+        self.game_score = game_score
 
     def handle_events(self, event_queue, key_ctrl):
         """
@@ -30,6 +45,13 @@ class GameState:
         Render the state.
         """
         raise NotImplementedError
+
+    def render_score(self):
+        font = pygame.font.SysFont(FontFamily.SYS_MONO, 24)
+        text = font.render(
+            f"Score: {self.game_score.score}", True, (255, 255, 255))
+        self.display.blit(text, (self.display.get_width() -
+                          10 - text.get_width(), 10))
 
 
 class PlayingState(GameState):
@@ -84,6 +106,7 @@ class PlayingState(GameState):
         self.objects.update()
 
         for asteroid in pygame.sprite.groupcollide(self.asteroids, self.bullets, True, True):
+            self.game_score.add(asteroid.reward)
             frags = asteroid.explode()
             self.objects.add(*frags)
             self.asteroids.add(*frags)
@@ -102,6 +125,7 @@ class PlayingState(GameState):
         self.display.fill((0, 0, 0))
         self.objects.draw(self.display)
         self.render_lives()
+        self.render_score()
 
     def render_lives(self):
         font = pygame.font.SysFont(FontFamily.SYS_MONO, 24)
@@ -126,6 +150,9 @@ class GameOverState(GameState):
 
     def render(self):
         self.display.fill((0, 0, 0))
+
+        self.render_score()
+
         game_over_text = self.font_lg.render("Game Over", True, (255, 0, 0))
         continue_text = self.font_md.render(
             "Press ENTER to start a new game", True, (255, 255, 255))

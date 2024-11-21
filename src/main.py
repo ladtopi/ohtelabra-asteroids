@@ -1,7 +1,7 @@
 import pygame
 
 from constants import Event
-from state import GameOverState, PlayingState
+from state import GameOverState, GameScore, PlayingState
 
 
 def main():
@@ -12,7 +12,8 @@ def main():
     pygame.display.set_caption("Pysteroids")
     pygame.init()
 
-    state = PlayingState(display=display)
+    score = GameScore()
+    state = PlayingState(display=display, game_score=score)
 
     running = True
 
@@ -22,9 +23,10 @@ def main():
         if pygame.key.get_pressed()[pygame.K_ESCAPE]:
             running = False
         if pygame.event.get(Event.GAME_OVER):
-            state = GameOverState(display=display)
+            state = GameOverState(display=display, game_score=score)
         if pygame.event.get(Event.START_NEW_GAME):
-            state = PlayingState(display=display)
+            score.reset()
+            state = PlayingState(display=display, game_score=score)
 
         state.handle_events(pygame.event, pygame.key)
         state.update(pygame.event)
