@@ -3,9 +3,14 @@ import unittest
 from ship import Ship
 
 
+class DisplayStub:
+    def get_size(self):
+        return (800, 600)
+
+
 class TestShip(unittest.TestCase):
     def setUp(self):
-        self.ship = Ship(400, 300, (800, 600))
+        self.ship = Ship(x=400, y=300, display=DisplayStub())
 
     def test_rotate_right_rotates_one_degree_clockwise(self):
         self.ship.rotate_right()
