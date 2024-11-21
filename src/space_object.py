@@ -6,24 +6,26 @@ class SpaceObject(pygame.sprite.Sprite):
     A common base class for all objects that are moving around in the space.
     """
 
+    # This needs a lot of arguments so the pylint warning is disabled
+    # pylint: disable=too-many-arguments
     def __init__(self,
                  x=0,
                  y=0,
-                 display=None,
-                 image=None,
-                 velocity=pygame.Vector2(0, 0),
-                 position=pygame.Vector2(0, 0),
+                 vx=0,
+                 vy=0,
                  acceleration=0.005,
                  friction=0,
-                 angle=0):
+                 angle=0,
+                 image=None,
+                 display=None):
         super().__init__()
         self.angle = angle
-        self.velocity = velocity
-        self.position = position
+        self.position = pygame.Vector2(x, y)
+        self.velocity = pygame.Vector2(vx, vy)
         self.image = image.copy()
         self.rect = self.image.get_rect()
-        self.rect.x = x-self.rect.width//2
-        self.rect.y = y-self.rect.height//2
+        self.rect.x = self.position.x-self.rect.width//2
+        self.rect.y = self.position.y-self.rect.height//2
         self.acceleration = acceleration
         self.friction = friction
         self.display = display

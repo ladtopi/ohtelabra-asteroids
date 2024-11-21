@@ -4,16 +4,16 @@ from ship import Ship
 
 
 def main():
-    W = 800
-    H = 600
+    w = 800
+    h = 600
 
-    display = pygame.display.set_mode((W, H))
+    display = pygame.display.set_mode((w, h))
     pygame.display.set_caption("Pysteroids")
 
     objects = pygame.sprite.Group()
-    ship = Ship(W/2, H/2, display=display)
-    asteroid1 = Asteroid(100, 100, pygame.Vector2(0.05, 0.25), display=display)
-    asteroid2 = Asteroid(600, 200, pygame.Vector2(-.12, .1), display=display)
+    ship = Ship(x=w/2, y=h/2, display=display)
+    asteroid1 = Asteroid(x=100, y=100, vx=0.05, vy=0.25, display=display)
+    asteroid2 = Asteroid(x=600, y=200, vx=-.12, vy=.1, display=display)
     objects.add(ship)
     objects.add(asteroid1)
     objects.add(asteroid2)
