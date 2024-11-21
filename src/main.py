@@ -1,6 +1,7 @@
 import pygame
 
-from state import PlayingState
+from constants import Event
+from state import GameOverState, PlayingState
 
 
 def main():
@@ -20,9 +21,12 @@ def main():
             running = False
         if pygame.key.get_pressed()[pygame.K_ESCAPE]:
             running = False
+        if pygame.event.get(Event.GAME_OVER):
+            state = GameOverState(display=display)
 
         state.handle_events(pygame.event, pygame.key)
-        state.update()
+        state.update(pygame.event)
+        state.render()
 
         pygame.display.flip()
 
