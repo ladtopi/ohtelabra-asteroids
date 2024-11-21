@@ -88,6 +88,10 @@ class PlayingState(GameState):
                 bullet = self.ship.fire()
                 self.objects.add(bullet)
                 self.bullets.add(bullet)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_r and key_ctrl.get_mods() & pygame.KMOD_CTRL:
+                # print("ctrl-r pressed")
+                # convenience feature for development
+                pygame.event.post(pygame.event.Event(Event.START_NEW_GAME))
             if event.type == Event.REPLACE_SHIP:
                 self.replace_ship()
 
