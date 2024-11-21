@@ -12,6 +12,4 @@ class Asteroid(SpaceObject):
         super().__init__(
             **kwargs,
             image=ASTEROID_IMAGE,
-            acceleration=0.005,
-            friction=0
         )

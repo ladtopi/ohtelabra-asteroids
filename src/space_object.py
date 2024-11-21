@@ -13,7 +13,7 @@ class SpaceObject(pygame.sprite.Sprite):
                  y=0,
                  vx=0,
                  vy=0,
-                 acceleration=0.005,
+                 acceleration=0,
                  friction=0,
                  angle=0,
                  image=None,

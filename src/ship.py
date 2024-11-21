@@ -1,6 +1,7 @@
 import pygame
 import pygame.gfxdraw
 
+from bullet import Bullet
 from space_object import SpaceObject
 
 SHIP_SIZE = 40
@@ -16,7 +17,6 @@ class Ship(SpaceObject):
             image=SHIP_IMAGE,
             acceleration=0.002,
             friction=0.0005,
-            angle=0,
         )
 
     def rotate_right(self, degrees=1):
@@ -36,3 +36,14 @@ class Ship(SpaceObject):
     def thrust(self):
         self.velocity += pygame.Vector2(
             0, (-self.acceleration)).rotate(-self.angle)
+
+    def fire(self):
+        v = pygame.Vector2(0, -.5).rotate(-self.angle)
+        return Bullet(
+            x=self.position.x,
+            y=self.position.y,
+            vx=self.velocity.x + v.x,
+            vy=self.velocity.y + v.y,
+            angle=self.angle,
+            display=self.display,
+        )
