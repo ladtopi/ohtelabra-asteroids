@@ -23,6 +23,8 @@ def main():
             running = False
         if pygame.event.get(Event.GAME_OVER):
             state = GameOverState(display=display)
+        if pygame.event.get(Event.START_NEW_GAME):
+            state = PlayingState(display=display)
 
         state.handle_events(pygame.event, pygame.key)
         state.update(pygame.event)

@@ -90,17 +90,25 @@ class PlayingState(GameState):
 class GameOverState(GameState):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.font = pygame.font.SysFont(FontFamily.SYS_MONO, 36)
-        self.text = self.font.render("Game Over", True, (255, 0, 0))
+        self.font_lg = pygame.font.SysFont(FontFamily.SYS_MONO, 36)
+        self.font_md = pygame.font.SysFont(FontFamily.SYS_MONO, 24)
 
     def handle_events(self, event_queue, key_ctrl):
-        pass
+        for event in event_queue.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                event_queue.post(pygame.event.Event(Event.START_NEW_GAME))
 
     def update(self, event_queue):
         pass
 
     def render(self):
         self.display.fill((0, 0, 0))
-        x = self.display.get_width() / 2 - self.text.get_width() / 2
-        y = self.display.get_height() / 2 - self.text.get_height() / 2
-        self.display.blit(self.text, (x, y))
+        game_over_text = self.font_lg.render("Game Over", True, (255, 0, 0))
+        continue_text = self.font_md.render(
+            "Press ENTER to start a new game", True, (255, 255, 255))
+        x = self.display.get_width() / 2 - game_over_text.get_width() / 2
+        y = self.display.get_height() / 2 - game_over_text.get_height() / 2
+        self.display.blit(game_over_text, (x, y))
+        x = self.display.get_width() / 2 - continue_text.get_width() / 2
+        y += game_over_text.get_height()
+        self.display.blit(continue_text, (x, y))

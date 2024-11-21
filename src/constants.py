@@ -11,6 +11,10 @@ class Event(IntEnum):
     """
     Custom event type for game over.
     """
+    START_NEW_GAME = pygame.event.custom_type()
+    """
+    Custom event type for starting a new game.
+    """
 
 
 class FontFamily(StrEnum):
