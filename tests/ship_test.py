@@ -1,5 +1,6 @@
 import unittest
 
+from bullet import Bullet
 from ship import Ship
 
 
@@ -43,3 +44,10 @@ class TestShip(unittest.TestCase):
         self.ship.thrust()
         self.ship.thrust()
         self.assertEqual(self.ship.velocity.y, self.ship.acceleration * 3)
+
+    def test_fire_creates_a_new_bullet(self):
+        self.assertTrue(isinstance(self.ship.fire(), Bullet))
+
+    def test_fire_shoots_bullet_in_direction_of_ship(self):
+        bullet = self.ship.fire()
+        self.assertEqual(bullet.velocity.angle_to((0, -1)), 0)
