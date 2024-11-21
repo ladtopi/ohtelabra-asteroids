@@ -115,13 +115,18 @@ class PlayingState(GameState):
             self.objects.add(*frags)
             self.asteroids.add(*frags)
 
-        if pygame.sprite.spritecollide(self.ship, self.asteroids, True):
-            self.ship.kill()
-            self.ships_remaining -= 1
-            if self.ships_remaining == 0:
-                event_queue.post(pygame.event.Event(Event.GAME_OVER))
-            else:
-                pygame.time.set_timer(Event.REPLACE_SHIP, 1000, loops=1)
+        if self.ship.alive():
+            if asteroids := pygame.sprite.spritecollide(self.ship, self.asteroids, True):
+                self.ship.kill()
+                self.ships_remaining -= 1
+                if self.ships_remaining == 0:
+                    event_queue.post(pygame.event.Event(Event.GAME_OVER))
+                else:
+                    pygame.time.set_timer(Event.REPLACE_SHIP, 1000, loops=1)
+                self.game_score.add(asteroids[0].reward)
+                frags = asteroids[0].explode()
+                self.objects.add(*frags)
+                self.asteroids.add(*frags)
 
         self.objects.draw(self.display)
 
