@@ -4,17 +4,17 @@ Tavoitteena projektissa on tehdä klooni arcade-peliklassikosta Asteroids. [Aste
 
 ## Perusversion toiminnallisuus
 
-- Pelaaja voi kääntää avaruusaluksen suuntaa.
-- Pelaaja voi kiihdyttää avaruusalusta eteenpäin.
-- Liikkuessaan kentän reunan yli avaruusalus tulee esiin vastakkaiselta puolelta.
-- Pelaaja voi ampua avaruusaluksen aseella.
-- Pelaajan tuhottavaksi generoituu asteroideja.
-- Liikkuessaan kentän reunan yli asteroidit tulevat esiin vastakkaiselta puolelta. Tämä on osa pelin haastetta.
-- Tuhottu asteroidi pilkkoituu ennen tuhoutumistaan ensin pienemmiksi asteroideiksi, jotka liikkuvat eri suuntiin. Tämä pitää tapahtumat mielenkiintoisina.
-- Kun kaikki asteroidit on tuhottu, generoituu uusi aalto asteroideja.
-- Pelaajalle näkyy kulloinkin senhetkinen pistetilanne.
-- Pelaaja saa lisää pisteitä tuhotessaan asteroideja.
-- Peli päättyy, kun pelaaja saa tarpeeksi monta osumaa.
+- Pelaaja voi kääntää avaruusaluksen suuntaa ✅.
+- Pelaaja voi kiihdyttää avaruusalusta eteenpäin ✅.
+- Liikkuessaan kentän reunan yli avaruusalus tulee esiin vastakkaiselta puolelta ✅.
+- Pelaaja voi ampua avaruusaluksen aseella ✅.
+- Pelaajan tuhottavaksi generoituu asteroideja ✅.
+- Liikkuessaan kentän reunan yli asteroidit tulevat esiin vastakkaiselta puolelta. Tämä on osa pelin haastetta. ✅
+- Tuhottu asteroidi pilkkoituu ennen tuhoutumistaan ensin pienemmiksi asteroideiksi, jotka liikkuvat eri suuntiin. Tämä pitää tapahtumat mielenkiintoisina. ✅
+- Kun kaikki asteroidit on tuhottu, generoituu uusi aalto asteroideja. 🚧
+- Pelaajalle näkyy kulloinkin senhetkinen pistetilanne. ✅
+- Pelaaja saa lisää pisteitä tuhotessaan asteroideja. ✅
+- Peli päättyy, kun pelaaja saa tarpeeksi monta osumaa. ✅
 
 ## Ideoita perusversion jälkeen
 
