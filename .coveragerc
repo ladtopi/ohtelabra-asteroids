@@ -2,6 +2,7 @@
 source = src
 branch = True
 command_line = -m pytest
+omit = main.py, rendering.py
 
 [report]
 show_missing = True
