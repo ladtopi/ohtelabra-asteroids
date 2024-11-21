@@ -15,6 +15,10 @@ class Event(IntEnum):
     """
     Custom event type for starting a new game.
     """
+    REPLACE_SHIP = pygame.event.custom_type()
+    """
+    Custom event type for replacing the ship.
+    """
 
 
 class FontFamily(StrEnum):
