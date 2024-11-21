@@ -39,11 +39,11 @@ class SpaceObject(pygame.sprite.Sprite):
     def screen_wrap(self):
         w, h = self.rect.size
         scr_w, scr_h = self.display.get_size()
-        if self.position.x + w//2 < 0:
+        if self.position.x + w/2 < 0:
             self.position.x = scr_w + w//2
-        if self.position.x - w//2 > scr_w:
+        if self.position.x - w/2 > scr_w:
             self.position.x = -w//2
-        if self.position.y + h//2 < 0:
+        if self.position.y + h/2 < 0:
             self.position.y = scr_h + h//2
-        if self.position.y - h//2 > scr_h:
+        if self.position.y - h/2 > scr_h:
             self.position.y = -h//2
