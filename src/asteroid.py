@@ -8,11 +8,11 @@ pygame.gfxdraw.filled_circle(ASTEROID_IMAGE, 20, 20, 19, (180, 220, 220))
 
 
 class Asteroid(SpaceObject):
-    def __init__(self, x=0, y=0, v=pygame.Vector2(0, 0), screen_size=(800, 600)):
+    def __init__(self, x=0, y=0, v=pygame.Vector2(0, 0), display=None):
         super().__init__(
             x=x,
             y=y,
-            screen_size=screen_size,
+            display=display,
             image=ASTEROID_IMAGE,
             velocity=v,
             position=pygame.Vector2(x, y),

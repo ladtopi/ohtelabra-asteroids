@@ -9,7 +9,7 @@ class SpaceObject(pygame.sprite.Sprite):
     def __init__(self,
                  x=0,
                  y=0,
-                 screen_size=(800, 600),
+                 display=None,
                  image=None,
                  velocity=pygame.Vector2(0, 0),
                  position=pygame.Vector2(0, 0),
@@ -26,7 +26,7 @@ class SpaceObject(pygame.sprite.Sprite):
         self.rect.y = y-self.rect.height//2
         self.acceleration = acceleration
         self.friction = friction
-        self.screen_width, self.screen_height = screen_size
+        self.display = display
 
     def update(self):
         self.velocity *= (1-self.friction)
@@ -35,11 +35,13 @@ class SpaceObject(pygame.sprite.Sprite):
         self.rect.center = self.position
 
     def screen_wrap(self):
-        if self.position.x + self.rect.width//2 < 0:
-            self.position.x = self.screen_width + self.rect.width//2
-        if self.position.x - self.rect.width//2 > self.screen_width:
-            self.position.x = -self.rect.width//2
-        if self.position.y + self.rect.height//2 < 0:
-            self.position.y = self.screen_height + self.rect.height//2
-        if self.position.y - self.rect.height//2 > self.screen_height:
-            self.position.y = -self.rect.height//2
+        w, h = self.rect.size
+        scr_w, scr_h = self.display.get_size()
+        if self.position.x + w//2 < 0:
+            self.position.x = scr_w + w//2
+        if self.position.x - w//2 > scr_w:
+            self.position.x = -w//2
+        if self.position.y + h//2 < 0:
+            self.position.y = scr_h + h//2
+        if self.position.y - h//2 > scr_h:
+            self.position.y = -h//2
