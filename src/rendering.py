@@ -3,7 +3,7 @@ import pygame
 from constants import FONT_SYS_MONO
 
 
-class GameView:
+class GameRenderer:
     def __init__(self, state, display, frame_cb=None):
         self.state = state
         self.display = display

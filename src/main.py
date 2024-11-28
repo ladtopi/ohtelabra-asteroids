@@ -2,7 +2,7 @@ import pygame
 
 from gameloop import GameLoop
 from state import GameState
-from rendering import GameView
+from rendering import GameRenderer
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
     pygame.init()
 
     state = GameState(display)
-    renderer = GameView(state, display, pygame.display.flip)
+    renderer = GameRenderer(state, display, pygame.display.flip)
     loop = GameLoop(state, renderer, pygame.event, pygame.key)
 
     loop.run()
