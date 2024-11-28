@@ -1,7 +1,7 @@
 import pygame
 
 from asteroid import Asteroid
-from constants import Event
+from constants import EVENT_REPLACE_SHIP
 from ship import Ship
 
 
@@ -69,7 +69,7 @@ class GameState:
                 self.ship.kill()
                 self.ships_remaining -= 1
                 if self.ships_remaining > 0:
-                    pygame.time.set_timer(Event.REPLACE_SHIP, 1000, loops=1)
+                    pygame.time.set_timer(EVENT_REPLACE_SHIP, 1000, loops=1)
                 self.score += asteroids[0].reward
                 frags = asteroids[0].explode()
                 self.objects.add(*frags)

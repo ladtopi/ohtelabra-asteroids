@@ -1,6 +1,6 @@
 import pygame
 
-from constants import FontFamily
+from constants import FONT_SYS_MONO
 
 
 class GameView:
@@ -19,21 +19,21 @@ class GameView:
         self.frame_cb()
 
     def render_lives(self):
-        font = pygame.font.SysFont(FontFamily.SYS_MONO, 24)
+        font = pygame.font.SysFont(FONT_SYS_MONO, 24)
         text = font.render(
             f"Ships: {self.state.ships_remaining}", True, (255, 255, 255))
         self.display.blit(text, (10, 10))
 
     def render_score(self):
-        font = pygame.font.SysFont(FontFamily.SYS_MONO, 24)
+        font = pygame.font.SysFont(FONT_SYS_MONO, 24)
         text = font.render(
             f"Score: {self.state.score}", True, (255, 255, 255))
         self.display.blit(text, (self.display.get_width() -
                           10 - text.get_width(), 10))
 
     def render_game_over(self):
-        font_lg = pygame.font.SysFont(FontFamily.SYS_MONO, 36)
-        font_md = pygame.font.SysFont(FontFamily.SYS_MONO, 24)
+        font_lg = pygame.font.SysFont(FONT_SYS_MONO, 36)
+        font_md = pygame.font.SysFont(FONT_SYS_MONO, 24)
         game_over_text = font_lg.render("Game Over", True, (255, 0, 0))
         continue_text = font_md.render(
             "Press ENTER to start a new game", True, (255, 255, 255))
