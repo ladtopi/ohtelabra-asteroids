@@ -19,26 +19,12 @@ class Ship(SpaceObject):
             friction=0.0005,
         )
 
-    def rotate_right(self, degrees=1):
-        if self.angle < degrees:
-            self.angle += 360
-        self.angle -= degrees
-        self.image = pygame.transform.rotate(SHIP_IMAGE, self.angle)
-        self.rect = self.image.get_rect(center=self.rect.center)
-
-    def rotate_left(self, degrees=1):
-        if self.angle > 360 - degrees:
-            self.angle -= 360
-        self.angle += degrees
-        self.image = pygame.transform.rotate(SHIP_IMAGE, self.angle)
-        self.rect = self.image.get_rect(center=self.rect.center)
-
     def thrust(self):
         self.velocity += pygame.Vector2(
-            0, (-self.acceleration)).rotate(-self.angle)
+            0, (-self.acceleration)).rotate(self.angle)
 
     def fire(self):
-        v = pygame.Vector2(0, -.5).rotate(-self.angle)
+        v = pygame.Vector2(0, -.5).rotate(self.angle)
         return Bullet(
             x=self.position.x,
             y=self.position.y,

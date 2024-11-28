@@ -15,12 +15,11 @@ class TestShip(unittest.TestCase):
 
     def test_rotate_right_rotates_one_degree_clockwise(self):
         self.ship.rotate_right()
-        # by pygame angle conventions, rotating clockwise decreases the angle
-        self.assertEqual(self.ship.angle, 359)
+        self.assertEqual(self.ship.angle, 1)
 
     def test_rotate_left_rotates_one_degree_counter_clockwise(self):
         self.ship.rotate_left()
-        self.assertEqual(self.ship.angle, 1)
+        self.assertEqual(self.ship.angle, 359)
 
     def test_turning_around_twice_returns_to_original_angle(self):
         self.ship.rotate_right(180)
@@ -49,5 +48,6 @@ class TestShip(unittest.TestCase):
         self.assertTrue(isinstance(self.ship.fire(), Bullet))
 
     def test_fire_shoots_bullet_in_direction_of_ship(self):
+        self.ship.rotate_right(33)
         bullet = self.ship.fire()
-        self.assertEqual(bullet.velocity.angle_to((0, -1)), 0)
+        self.assertAlmostEqual(bullet.angle, self.ship.angle)

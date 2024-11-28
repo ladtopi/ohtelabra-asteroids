@@ -1,5 +1,7 @@
 import pygame
 
+UP = pygame.Vector2(0, -1)
+
 
 class SpaceObject(pygame.sprite.Sprite):
     """
@@ -19,16 +21,34 @@ class SpaceObject(pygame.sprite.Sprite):
                  image=None,
                  display=None):
         super().__init__()
-        self.angle = angle
+        self.direction = UP.rotate(angle)
         self.position = pygame.Vector2(x, y)
         self.velocity = pygame.Vector2(vx, vy)
-        self.image = image.copy()
+        self.image_original = image.copy()
+        self.image = pygame.transform.rotate(image, -self.angle)
         self.rect = self.image.get_rect()
         self.rect.x = self.position.x-self.rect.width//2
         self.rect.y = self.position.y-self.rect.height//2
         self.acceleration = acceleration
         self.friction = friction
         self.display = display
+
+    @property
+    def angle(self):
+        angle = round(UP.angle_to(self.direction))
+        if angle < 0:
+            return 360 + angle
+        return angle
+
+    def rotate_right(self, degrees=1):
+        self.direction.rotate_ip(degrees)
+        self.image = pygame.transform.rotate(self.image_original, -self.angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
+
+    def rotate_left(self, degrees=1):
+        self.direction.rotate_ip(-degrees)
+        self.image = pygame.transform.rotate(self.image_original, -self.angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
 
     def update(self):
         self.velocity *= (1-self.friction)
