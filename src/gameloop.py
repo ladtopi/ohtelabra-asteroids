@@ -12,7 +12,7 @@ class GameLoop:
 
     def run(self):
         while True:
-            if self._handle_events() == False:
+            if not self._handle_events():
                 break
             self._state.update()
             self._renderer.render()
