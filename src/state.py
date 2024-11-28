@@ -7,14 +7,22 @@ from ship import Ship
 
 class GameState:
     def __init__(self, display):
-        self.score = 0
-        self.ships_remaining = 3
-
         self.display = display
-
         self.objects = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.asteroids = pygame.sprite.Group()
+        self.ship = None
+        self.score = None
+        self.ships_remaining = None
+        self.reset()
+
+    def reset(self):
+        self.objects.empty()
+        self.bullets.empty()
+        self.asteroids.empty()
+
+        self.score = 0
+        self.ships_remaining = 3
 
         self.replace_ship()
 
@@ -33,28 +41,19 @@ class GameState:
         self.ship = Ship(x=w/2, y=h/2, display=self.display)
         self.objects.add(self.ship)
 
-    def handle_events(self, event_queue, key_ctrl):
-        for event in event_queue.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                bullet = self.ship.fire()
-                self.objects.add(bullet)
-                self.bullets.add(bullet)
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and self.is_game_over():
-                pygame.event.post(pygame.event.Event(Event.START_NEW_GAME))
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_r and key_ctrl.get_mods() & pygame.KMOD_CTRL:
-                # print("ctrl-r pressed")
-                # convenience feature for development
-                pygame.event.post(pygame.event.Event(Event.START_NEW_GAME))
-            if event.type == Event.REPLACE_SHIP:
-                self.replace_ship()
+    def fire_ship(self):
+        bullet = self.ship.fire()
+        self.objects.add(bullet)
+        self.bullets.add(bullet)
 
-        pressed = key_ctrl.get_pressed()
-        if pressed[pygame.K_RIGHT]:
-            self.ship.rotate_right()
-        if pressed[pygame.K_LEFT]:
-            self.ship.rotate_left()
-        if pressed[pygame.K_UP]:
-            self.ship.thrust()
+    def thrust_ship(self):
+        self.ship.thrust()
+
+    def rotate_ship_right(self):
+        self.ship.rotate_right()
+
+    def rotate_ship_left(self):
+        self.ship.rotate_left()
 
     def update(self):
         self.objects.update()

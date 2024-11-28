@@ -1,6 +1,6 @@
 import pygame
 
-from constants import Event
+from gameloop import GameLoop
 from state import GameState
 from rendering import GameView
 
@@ -14,25 +14,10 @@ def main():
     pygame.init()
 
     state = GameState(display)
-    view = GameView(state, display)
+    renderer = GameView(state, display, pygame.display.flip)
+    loop = GameLoop(state, renderer, pygame.event, pygame.key)
 
-    running = True
-
-    while running:
-        if pygame.event.get(pygame.QUIT):
-            running = False
-        if pygame.key.get_pressed()[pygame.K_ESCAPE]:
-            running = False
-        if pygame.event.get(Event.START_NEW_GAME):
-            state = GameState(display)
-            view = GameView(state, display)
-
-        state.handle_events(pygame.event, pygame.key)
-        state.update()
-
-        view.render()
-
-        pygame.display.flip()
+    loop.run()
 
     pygame.quit()
 

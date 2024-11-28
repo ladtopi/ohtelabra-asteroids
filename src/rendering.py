@@ -4,9 +4,10 @@ from constants import FontFamily
 
 
 class GameView:
-    def __init__(self, state, display):
+    def __init__(self, state, display, frame_cb=None):
         self.state = state
         self.display = display
+        self.frame_cb = frame_cb
 
     def render(self):
         self.display.fill((0, 0, 0))
@@ -15,6 +16,7 @@ class GameView:
         self.render_score()
         if self.state.is_game_over():
             self.render_game_over()
+        self.frame_cb()
 
     def render_lives(self):
         font = pygame.font.SysFont(FontFamily.SYS_MONO, 24)
