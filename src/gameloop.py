@@ -34,6 +34,10 @@ class GameLoop:
                     # print("ctrl-r pressed")
                     # convenience feature for development
                     self._state.reset()
+                if event.key == pygame.K_d and event.mod & pygame.KMOD_CTRL:
+                    # print("ctrl-d pressed")
+                    # convenience feature for development
+                    self._state.nuke_asteroids()
 
         if self._kbd.is_pressed(pygame.K_ESCAPE):
             return False

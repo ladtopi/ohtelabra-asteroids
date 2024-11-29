@@ -7,6 +7,9 @@ from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
 from ship import Ship
 
 
+INITIAL_WAVE_SIZE = 3
+
+
 class GameState:
     def __init__(self, collision_checker, event_queue, display):
         self.collision_checker = collision_checker
@@ -18,6 +21,11 @@ class GameState:
         self.ship = None
         self.score = None
         self.ships_remaining = None
+        self.waves = None
+
+    @property
+    def asteroids_remaining(self):
+        return len(self.asteroids)
 
     def reset(self):
         self.objects.empty()
@@ -26,6 +34,7 @@ class GameState:
 
         self.score = 0
         self.ships_remaining = 3
+        self.waves = 0
 
         self.spawn_ship()
         self.spawn_asteroid_wave()
@@ -39,9 +48,10 @@ class GameState:
         self.asteroids.add(asteroid)
         return asteroid
 
-    def spawn_asteroid_wave(self, n=3):
+    def spawn_asteroid_wave(self):
+        self.waves += 1
         asteroids = []
-        for _ in range(n):
+        for _ in range(INITIAL_WAVE_SIZE + (self.waves // 2)):
             ship_x, ship_y = self.ship.position
             w, h = self.display.get_size()
             center = random_coords((w, h), (ship_x, ship_y, 0, 0), 80)
@@ -94,6 +104,11 @@ class GameState:
         if len(self.asteroids) == 0:
             self.event_queue.defer(EVENT_SPAWN_ASTEROID_WAVE, 1000)
         return frags
+
+    def nuke_asteroids(self):
+        for asteroid in self.asteroids:
+            asteroid.kill()
+        self.event_queue.defer(EVENT_SPAWN_ASTEROID_WAVE, 1000)
 
     def handle_collisions(self):
         for bullet in self.bullets:
