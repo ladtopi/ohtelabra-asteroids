@@ -1,6 +1,7 @@
 import pygame
 
-from fonts import FONT_SYS_MONO
+
+FONT_SYS_MONO = pygame.font.get_fonts()[0]
 
 
 class GameRenderer:
