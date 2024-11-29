@@ -44,9 +44,9 @@ class GameState:
         for _ in range(n):
             ship_x, ship_y = self.ship.position
             w, h = self.display.get_size()
-            center = random_coords((w, h), (ship_x, ship_y, 0, 0), 30)
-            vx = random.uniform(-0.1, 0.1)
-            vy = random.uniform(-0.1, 0.1)
+            center = random_coords((w, h), (ship_x, ship_y, 0, 0), 80)
+            vx = random.uniform(-0.20, 0.20)
+            vy = random.uniform(-0.20, 0.20)
             asteroids.append(self.spawn_asteroid(*center, vx=vx, vy=vy))
         return asteroids
 

@@ -4,8 +4,8 @@ import pygame.gfxdraw
 
 from space_object import SpaceObject
 
-ASTEROID_IMAGE = pygame.Surface((40, 40), pygame.SRCALPHA)
-pygame.gfxdraw.filled_circle(ASTEROID_IMAGE, 20, 20, 19, (180, 220, 220))
+ASTEROID_IMAGE = pygame.Surface((70, 70), pygame.SRCALPHA)
+pygame.gfxdraw.filled_circle(ASTEROID_IMAGE, 35, 35, 34, (180, 220, 220))
 ASTEROID_INIT_SIZE = 3
 
 
@@ -17,7 +17,7 @@ class Asteroid(SpaceObject):
         super().__init__(
             **kwargs,
             image=pygame.transform.scale_by(
-                ASTEROID_IMAGE, .75 ** (ASTEROID_INIT_SIZE-size)),
+                ASTEROID_IMAGE, .6 ** (ASTEROID_INIT_SIZE-size)),
         )
         self.size = size
         self.reward = REWARDS[size]
