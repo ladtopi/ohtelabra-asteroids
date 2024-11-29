@@ -8,6 +8,7 @@ SHIP_SIZE = 40
 SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
 pygame.gfxdraw.filled_trigon(SHIP_IMAGE, 0, SHIP_SIZE, SHIP_SIZE //
                              2, 0, SHIP_SIZE, SHIP_SIZE, (255, 255, 255))
+SHIP_MAX_SPEED = 2
 
 
 class Ship(SpaceObject):
@@ -20,8 +21,9 @@ class Ship(SpaceObject):
         )
 
     def thrust(self):
-        self.velocity += pygame.Vector2(
-            0, (-self.acceleration)).rotate(self.angle)
+        if self.velocity.length() < SHIP_MAX_SPEED:
+            self.velocity += pygame.Vector2(
+                0, (-self.acceleration)).rotate(self.angle)
 
     def fire(self):
         v = pygame.Vector2(0, -.5).rotate(self.angle)
