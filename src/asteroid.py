@@ -28,10 +28,11 @@ class Asteroid(SpaceObject):
             for _ in range(2):
                 v = self.velocity * random.uniform(.9, 1.1)
                 v = v.rotate(random.uniform(-45, 45))
+                x, y = self.position
                 frags.append(
                     Asteroid(
-                        x=self.position.x,
-                        y=self.position.y,
+                        x=x,
+                        y=y,
                         vx=v.x,
                         vy=v.y,
                         size=self.size - 1,

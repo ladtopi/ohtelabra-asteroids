@@ -16,7 +16,6 @@ class GameState:
         self.ship = None
         self.score = None
         self.ships_remaining = None
-        self.reset()
 
     def reset(self):
         self.objects.empty()
@@ -30,10 +29,13 @@ class GameState:
         self.spawn_asteroid(x=100, y=100, vx=0.05, vy=0.25)
         self.spawn_asteroid(x=600, y=200, vx=-.12, vy=.1)
 
-    def spawn_asteroid(self, x, y, vx, vy):
+        return self
+
+    def spawn_asteroid(self, x=0, y=0, vx=0, vy=0):
         asteroid = Asteroid(x=x, y=y, vx=vx, vy=vy, display=self.display)
         self.objects.add(asteroid)
         self.asteroids.add(asteroid)
+        return asteroid
 
     def spawn_ship(self):
         if self.ship and self.ship.alive():
@@ -41,11 +43,13 @@ class GameState:
         w, h = self.display.get_size()
         self.ship = Ship(x=w/2, y=h/2, display=self.display)
         self.objects.add(self.ship)
+        return self.ship
 
     def fire_ship(self):
         bullet = self.ship.fire()
         self.objects.add(bullet)
         self.bullets.add(bullet)
+        return bullet
 
     def thrust_ship(self):
         self.ship.thrust()
@@ -59,7 +63,7 @@ class GameState:
     def kill_ship(self):
         self.ship.kill()
         self.ships_remaining -= 1
-        if self.should_respawn():
+        if self.ships_remaining > 0:
             self.event_queue.defer(EVENT_SPAWN_SHIP, 1000)
 
     def kill_bullet(self, bullet):
@@ -71,9 +75,11 @@ class GameState:
         frags = asteroid.explode()
         self.objects.add(*frags)
         self.asteroids.add(*frags)
+        return frags
 
-    def update(self):
+    def handle_collisions(self):
         for bullet in self.bullets:
+            print("verfying collisons for bullet", bullet)
             if asteroid := self.collision_checker.get_collision(bullet, self.asteroids):
                 self.kill_bullet(bullet)
                 self.explode_asteroid(asteroid)
@@ -83,10 +89,6 @@ class GameState:
                 self.kill_ship()
                 self.explode_asteroid(asteroid)
 
+    def update(self):
+        self.handle_collisions()
         self.objects.update()
-
-    def should_respawn(self):
-        return not self.ship.alive() and not self.is_game_over()
-
-    def is_game_over(self):
-        return self.ships_remaining == 0

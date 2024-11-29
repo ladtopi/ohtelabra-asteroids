@@ -22,13 +22,13 @@ class SpaceObject(pygame.sprite.Sprite):
                  display=None):
         super().__init__()
         self.direction = UP.rotate(angle)
-        self.position = pygame.Vector2(x, y)
+        self._position = pygame.Vector2(x, y)
         self.velocity = pygame.Vector2(vx, vy)
         self.image_original = image.copy()
         self.image = pygame.transform.rotate(image, -self.angle)
         self.rect = self.image.get_rect()
-        self.rect.x = self.position.x-self.rect.width//2
-        self.rect.y = self.position.y-self.rect.height//2
+        self.rect.x = self._position.x-self.rect.width//2
+        self.rect.y = self._position.y-self.rect.height//2
         self.acceleration = acceleration
         self.friction = friction
         self.display = display
@@ -39,6 +39,10 @@ class SpaceObject(pygame.sprite.Sprite):
         if angle < 0:
             return 360 + angle
         return angle
+
+    @property
+    def position(self):
+        return (self._position.x, self._position.y)
 
     def rotate_right(self, degrees=1):
         self.direction.rotate_ip(degrees)
@@ -52,18 +56,18 @@ class SpaceObject(pygame.sprite.Sprite):
 
     def update(self):
         self.velocity *= (1-self.friction)
-        self.position += self.velocity
+        self._position += self.velocity
         self.screen_wrap()
-        self.rect.center = self.position
+        self.rect.center = self._position
 
     def screen_wrap(self):
         w, h = self.rect.size
         scr_w, scr_h = self.display.get_size()
-        if self.position.x + w/2 < 0:
-            self.position.x = scr_w + w//2
-        if self.position.x - w/2 > scr_w:
-            self.position.x = -w//2
-        if self.position.y + h/2 < 0:
-            self.position.y = scr_h + h//2
-        if self.position.y - h/2 > scr_h:
-            self.position.y = -h//2
+        if self._position.x + w/2 < 0:
+            self._position.x = scr_w + w//2
+        if self._position.x - w/2 > scr_w:
+            self._position.x = -w//2
+        if self._position.y + h/2 < 0:
+            self._position.y = scr_h + h//2
+        if self._position.y - h/2 > scr_h:
+            self._position.y = -h//2

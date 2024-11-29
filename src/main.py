@@ -19,7 +19,7 @@ def main():
     collision_checker = CollisionChecker()
     event_queue = EventQueue()
     keyboard = Keyboard()
-    state = GameState(collision_checker, event_queue, display)
+    state = GameState(collision_checker, event_queue, display).reset()
     renderer = GameRenderer(state, display, pygame.display.flip)
     loop = GameLoop(state, renderer, event_queue, keyboard)
 
