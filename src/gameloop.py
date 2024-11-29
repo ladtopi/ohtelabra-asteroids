@@ -15,7 +15,7 @@ class GameLoop:
             if not self._handle_events():
                 break
             self._state.update()
-            self._renderer.render()
+            self._renderer.render(self._state)
 
     def _handle_events(self):
         for event in self._event_queue.get():

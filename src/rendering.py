@@ -4,34 +4,33 @@ from fonts import FONT_SYS_MONO
 
 
 class GameRenderer:
-    def __init__(self, state, display, frame_cb=None):
-        self.state = state
+    def __init__(self, display, frame_cb=None):
         self.display = display
         self.frame_cb = frame_cb
 
-    def render(self):
+    def render(self, state):
         self.display.fill((0, 0, 0))
-        self.state.objects.draw(self.display)
-        self.render_lives()
-        self.render_score()
-        if self.state.is_game_over():
-            self.render_game_over()
+        state.objects.draw(self.display)
+        self.render_lives(state)
+        self.render_score(state)
+        if state.is_game_over():
+            self.render_game_over(state)
         self.frame_cb()
 
-    def render_lives(self):
+    def render_lives(self, state):
         font = pygame.font.SysFont(FONT_SYS_MONO, 24)
         text = font.render(
-            f"Ships: {self.state.ships_remaining}", True, (255, 255, 255))
+            f"Ships: {state.ships_remaining}", True, (255, 255, 255))
         self.display.blit(text, (10, 10))
 
-    def render_score(self):
+    def render_score(self, state):
         font = pygame.font.SysFont(FONT_SYS_MONO, 24)
         text = font.render(
-            f"Score: {self.state.score}", True, (255, 255, 255))
+            f"Score: {state.score}", True, (255, 255, 255))
         self.display.blit(text, (self.display.get_width() -
                           10 - text.get_width(), 10))
 
-    def render_game_over(self):
+    def render_game_over(self, state):
         font_lg = pygame.font.SysFont(FONT_SYS_MONO, 36)
         font_md = pygame.font.SysFont(FONT_SYS_MONO, 24)
         game_over_text = font_lg.render("Game Over", True, (255, 0, 0))
