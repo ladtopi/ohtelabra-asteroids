@@ -26,7 +26,7 @@ class Ship(SpaceObject):
                 0, (-self.acceleration)).rotate(self.angle)
 
     def fire(self):
-        v = pygame.Vector2(0, -.5).rotate(self.angle)
+        v = pygame.Vector2(0, -1.25).rotate(self.angle)
         x, y = self.position
         return Bullet(
             x=x,

@@ -3,12 +3,12 @@ import pygame.gfxdraw
 
 from space_object import SpaceObject
 
-BULLET_IMAGE = pygame.Surface((2, 5), pygame.SRCALPHA)
+BULLET_IMAGE = pygame.Surface((4, 4), pygame.SRCALPHA)
 pygame.gfxdraw.box(BULLET_IMAGE, BULLET_IMAGE.get_rect(), (255, 255, 255))
 
 
 class Bullet(SpaceObject):
-    def __init__(self, ttl=1000, **kwargs):
+    def __init__(self, ttl=350, **kwargs):
         super().__init__(
             **kwargs,
             image=BULLET_IMAGE,
