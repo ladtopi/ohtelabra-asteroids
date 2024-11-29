@@ -28,8 +28,7 @@ class GameState:
         self.ships_remaining = 3
 
         self.spawn_ship()
-        self.spawn_asteroid(x=100, y=100, vx=0.05, vy=0.25)
-        self.spawn_asteroid(x=600, y=200, vx=-.12, vy=.1)
+        self.spawn_asteroid_wave()
 
         return self
 
@@ -40,13 +39,12 @@ class GameState:
         self.asteroids.add(asteroid)
         return asteroid
 
-    def spawn_asteroid_wave(self):
+    def spawn_asteroid_wave(self, n=3):
         asteroids = []
-        for _ in range(3):
+        for _ in range(n):
             ship_x, ship_y = self.ship.position
             w, h = self.display.get_size()
-            center = random_coords((w, h), (ship_x, ship_y, 0, 0), 40)
-            print("spawning asteroid at pos", center)
+            center = random_coords((w, h), (ship_x, ship_y, 0, 0), 30)
             vx = random.uniform(-0.1, 0.1)
             vy = random.uniform(-0.1, 0.1)
             asteroids.append(self.spawn_asteroid(*center, vx=vx, vy=vy))

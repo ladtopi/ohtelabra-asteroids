@@ -24,7 +24,6 @@ class GameLoop:
             if event.type == EVENT_SPAWN_SHIP:
                 self._state.spawn_ship()
             if event.type == EVENT_SPAWN_ASTEROID_WAVE:
-                print("spawning asteroid wave")
                 self._state.spawn_asteroid_wave()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
