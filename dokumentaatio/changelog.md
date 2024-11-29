@@ -17,3 +17,11 @@
 - Pelaaja saa pisteitä tuhotessaan asteroideja
 - Peli päättyy, kun pelaaja saa tarpeeksi monta osumaa
 - Järkevän rakenteen alulle laittamista (pelin tila ja näkymä erillään)
+
+## Viikko 5
+
+- Asteroidiaaltoja generoituu loputtomasti
+- Asteroidien määrä aaltoa kohti kasvaa
+- Asteroidien ja pelaajan luotien liikettä säädety järkevämmäksi
+- Sovelluslogiikan selkeämpi eriyttäminen
+- GameState-luokalle lisätty monia perustoiminnallisuutta testaavia testejä
