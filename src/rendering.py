@@ -1,6 +1,6 @@
 import pygame
 
-from constants import FONT_SYS_MONO
+from fonts import FONT_SYS_MONO
 
 
 class GameRenderer:

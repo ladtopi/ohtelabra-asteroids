@@ -1,14 +1,14 @@
 import pygame
 
-from constants import EVENT_SPAWN_SHIP
+from events import EVENT_SPAWN_SHIP
 
 
 class GameLoop:
-    def __init__(self, state, renderer, event_queue, key_ctrl):
+    def __init__(self, state, renderer, event_queue, kbd):
         self._state = state
         self._renderer = renderer
         self._event_queue = event_queue
-        self._key_ctrl = key_ctrl
+        self._kbd = kbd
 
     def run(self):
         while True:
@@ -33,16 +33,14 @@ class GameLoop:
                     # convenience feature for development
                     self._state.reset()
 
-        pressed = self._key_ctrl.get_pressed()
-
-        if pressed[pygame.K_ESCAPE]:
+        if self._kbd.is_pressed(pygame.K_ESCAPE):
             return False
 
-        if pressed[pygame.K_UP]:
+        if self._kbd.is_pressed(pygame.K_UP):
             self._state.thrust_ship()
-        if pressed[pygame.K_RIGHT]:
+        if self._kbd.is_pressed(pygame.K_RIGHT):
             self._state.rotate_ship_right()
-        if pressed[pygame.K_LEFT]:
+        if self._kbd.is_pressed(pygame.K_LEFT):
             self._state.rotate_ship_left()
 
         return True
