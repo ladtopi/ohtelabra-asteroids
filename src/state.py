@@ -1,7 +1,9 @@
+import random
 import pygame
 
 from asteroid import Asteroid
-from events import EVENT_SPAWN_SHIP
+from cartesian import random_coords
+from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
 from ship import Ship
 
 
@@ -31,11 +33,24 @@ class GameState:
 
         return self
 
-    def spawn_asteroid(self, x=0, y=0, vx=0, vy=0):
-        asteroid = Asteroid(x=x, y=y, vx=vx, vy=vy, display=self.display)
+    def spawn_asteroid(self, x=0, y=0, vx=0, vy=0, size=3):
+        asteroid = Asteroid(x=x, y=y, vx=vx, vy=vy,
+                            display=self.display, size=size)
         self.objects.add(asteroid)
         self.asteroids.add(asteroid)
         return asteroid
+
+    def spawn_asteroid_wave(self):
+        asteroids = []
+        for _ in range(3):
+            ship_x, ship_y = self.ship.position
+            w, h = self.display.get_size()
+            center = random_coords((w, h), (ship_x, ship_y, 0, 0), 40)
+            print("spawning asteroid at pos", center)
+            vx = random.uniform(-0.1, 0.1)
+            vy = random.uniform(-0.1, 0.1)
+            asteroids.append(self.spawn_asteroid(*center, vx=vx, vy=vy))
+        return asteroids
 
     def spawn_ship(self):
         if self.ship and self.ship.alive():
@@ -78,6 +93,8 @@ class GameState:
         frags = asteroid.explode()
         self.objects.add(*frags)
         self.asteroids.add(*frags)
+        if len(self.asteroids) == 0:
+            self.event_queue.defer(EVENT_SPAWN_ASTEROID_WAVE, 1000)
         return frags
 
     def handle_collisions(self):

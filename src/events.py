@@ -2,6 +2,7 @@ import pygame
 
 
 EVENT_SPAWN_SHIP = pygame.event.custom_type()
+EVENT_SPAWN_ASTEROID_WAVE = pygame.event.custom_type()
 
 
 class EventQueue:
