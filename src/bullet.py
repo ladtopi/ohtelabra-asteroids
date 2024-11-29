@@ -8,12 +8,12 @@ pygame.gfxdraw.box(BULLET_IMAGE, BULLET_IMAGE.get_rect(), (255, 255, 255))
 
 
 class Bullet(SpaceObject):
-    def __init__(self, **kwargs):
+    def __init__(self, ttl=1000, **kwargs):
         super().__init__(
             **kwargs,
             image=BULLET_IMAGE,
         )
-        self.ttl = 1000
+        self.ttl = ttl
 
     def update(self):
         super().update()
