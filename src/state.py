@@ -66,7 +66,7 @@ class GameState:
 
     def spawn_ship(self):
         if self.ship and self.ship.alive():
-            return
+            return None
         w, h = self.display.get_size()
         self.ship = Ship(x=w/2, y=h/2, display=self.display)
         self.objects.add(self.ship)

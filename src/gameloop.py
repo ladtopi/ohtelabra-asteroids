@@ -14,6 +14,8 @@ class GameLoop:
         while True:
             if not self._handle_events():
                 break
+            if not self._handle_keys():
+                break
             self._state.update()
             self._renderer.render(self._state)
 
@@ -39,6 +41,9 @@ class GameLoop:
                     # convenience feature for development
                     self._state.nuke_asteroids()
 
+        return True
+
+    def _handle_keys(self):
         if self._kbd.is_pressed(pygame.K_ESCAPE):
             return False
 

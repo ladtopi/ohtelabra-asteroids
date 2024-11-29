@@ -10,7 +10,7 @@ def contains(a, pt):
     bottom = top + height
     x, y = pt
 
-    return x >= left and x <= right and y >= top and y <= bottom
+    return left <= x <= right and top <= y <= bottom
 
 
 def random_coords(area, exclude_region=(0, 0, 0, 0), exclude_margin=0):
