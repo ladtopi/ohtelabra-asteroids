@@ -26,7 +26,7 @@ class Asteroid(SpaceObject):
         frags = []
         if self.size > 1:
             for _ in range(2):
-                v = self.velocity * random.uniform(.9, 1.1)
+                v = self.velocity * random.uniform(1.0, 1.2)
                 v = v.rotate(random.uniform(-45, 45))
                 x, y = self.position
                 frags.append(
