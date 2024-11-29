@@ -1,6 +1,6 @@
 import pygame
 
-from constants import EVENT_REPLACE_SHIP
+from constants import EVENT_SPAWN_SHIP
 
 
 class GameLoop:
@@ -21,8 +21,8 @@ class GameLoop:
         for event in self._event_queue.get():
             if event.type == pygame.QUIT:
                 return False
-            if event.type == EVENT_REPLACE_SHIP:
-                self._state.replace_ship()
+            if event.type == EVENT_SPAWN_SHIP:
+                self._state.spawn_ship()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self._state.fire_ship()
