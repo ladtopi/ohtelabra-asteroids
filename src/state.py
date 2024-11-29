@@ -60,10 +60,13 @@ class GameState:
     def rotate_ship_left(self):
         self.ship.rotate_left()
 
+    def is_game_over(self):
+        return self.ships_remaining < 1
+
     def kill_ship(self):
         self.ship.kill()
         self.ships_remaining -= 1
-        if self.ships_remaining > 0:
+        if not self.is_game_over():
             self.event_queue.defer(EVENT_SPAWN_SHIP, 1000)
 
     def kill_bullet(self, bullet):
@@ -79,7 +82,6 @@ class GameState:
 
     def handle_collisions(self):
         for bullet in self.bullets:
-            print("verfying collisons for bullet", bullet)
             if asteroid := self.collision_checker.get_collision(bullet, self.asteroids):
                 self.kill_bullet(bullet)
                 self.explode_asteroid(asteroid)
