@@ -34,6 +34,25 @@ classDiagram
     GameObject <|-- Bullet: inherits
 ```
 
+## Tilanhallinta
+
+Pelin tilanhallinta on toteutettu luokalla `GameState`, joka ylläpitää kaikkien
+pelin objektien tilaa. Tämä tarkoittaa, että kyseinen luokka on ainoa, joka luo
+ja poistaa pelin objekteja kuten asteroideja ja ammuksia. Myös kaikki interaktio
+objektien kanssa hoidetaan tämän luokan läpi. Siis kun pelisilmukassa saadaan
+vaikkapa tieto siitä, että kättäjä on painanut oikeaa nuolinäppäintä,
+kääntymispyyntö pelaajan alukselle välitetään `GameState`-oliolle, joka sitten
+kääntää aluksen.
+
+## Käyttöliittymä
+
+Käyttöliittymän piirtäminen tapahtuu luokan `GameRenderer` avulla. Tämä
+käytännössä pyytää jokaista pelin objektia piirtämään itsensä näytölle, sekä
+piirtää pelin tilaan liittyvät muut elementit kuten pistemäärän ja mahdolliset
+ilmoitukset. Varsinaisen raskaan työn piirtämisen suhteen tekee `pygame`: kaikki
+pelin objektit perivät `pygame`-kirjaston `Sprite`-luokan, jonka johdosta
+objektien piirtäminen on vaivatonta.
+
 ## Päätoiminnallisuus
 
 Pelin päätoiminnallisuus on käytännössä pelilogiikan hallinta, ja siitä
