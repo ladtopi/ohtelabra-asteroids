@@ -25,3 +25,7 @@
 - Asteroidien ja pelaajan luotien liikettä säädety järkevämmäksi
 - Sovelluslogiikan selkeämpi eriyttäminen
 - GameState-luokalle lisätty monia perustoiminnallisuutta testaavia testejä
+
+## Viikko 6
+
+- Pelaajalla on rajallinen määrä ammuksia (per avaruusalus)

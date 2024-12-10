@@ -25,4 +25,4 @@ Näistä toteutetaan ajan salliessa mahdollisimman monta. Lisääkin ajatuksia s
 - Asteroidien keskimääräinen nopeus kasvaa pelin edetessä. Tämä lisää pelin haastetta.
 - Asteroidien määrä aaltoa kohti kasvaa pelin edetessä. Tämä lisää pelin haastetta. ✅
 - Pelaajan tuhottavaksi generoituu muita avaruusaluksia, jotka yrittävät ampua pelaajaa. Tämä lisää pelin haastetta.
-- Pelaajalla on rajallinen määrä ammuksia, jotka loppuvat kesken. Tämä lisää pelin taktista syvyyttä.
+- Pelaajalla on rajallinen määrä ammuksia, jotka loppuvat kesken. Tämä lisää pelin taktista syvyyttä. ✅
