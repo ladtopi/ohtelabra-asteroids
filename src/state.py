@@ -11,6 +11,10 @@ INITIAL_WAVE_SIZE = 3
 
 
 class GameState:
+    """
+    Holds and manages the gameplay state.
+    """
+
     def __init__(self, collision_checker, event_queue, display):
         self.collision_checker = collision_checker
         self.event_queue = event_queue
@@ -28,6 +32,9 @@ class GameState:
         return len(self.asteroids)
 
     def reset(self):
+        """
+        Resets the game state to the initial state.
+        """
         self.objects.empty()
         self.bullets.empty()
         self.asteroids.empty()
@@ -42,6 +49,9 @@ class GameState:
         return self
 
     def spawn_asteroid(self, x=0, y=0, vx=0, vy=0, size=3):
+        """
+        Spawns an asteroid at the given position with the given velocity and size.
+        """
         asteroid = Asteroid(x=x, y=y, vx=vx, vy=vy,
                             display=self.display, size=size)
         self.objects.add(asteroid)
@@ -49,6 +59,9 @@ class GameState:
         return asteroid
 
     def spawn_asteroid_wave(self):
+        """
+        Spawns a wave of asteroids with random positions and velocities.
+        """
         self.waves += 1
         asteroids = []
         for _ in range(INITIAL_WAVE_SIZE + (self.waves // 2)):
@@ -65,6 +78,9 @@ class GameState:
         return asteroids
 
     def spawn_ship(self):
+        """
+        Spawns a new ship in the game.
+        """
         if self.ship and self.ship.alive():
             return None
         w, h = self.display.get_size()
@@ -73,33 +89,55 @@ class GameState:
         return self.ship
 
     def fire_ship(self):
+        """
+        Fires the ship's weapon.
+        """
         bullet = self.ship.fire()
         self.objects.add(bullet)
         self.bullets.add(bullet)
         return bullet
 
     def thrust_ship(self):
+        """
+        Applies thrust to the ship.
+        """
         self.ship.thrust()
 
     def rotate_ship_right(self):
+        """
+        Rotates the ship to the right.
+        """
         self.ship.rotate_right()
 
     def rotate_ship_left(self):
+        """
+        Rotates the ship to the left
+        """
         self.ship.rotate_left()
 
     def is_game_over(self):
         return self.ships_remaining < 1
 
     def kill_ship(self):
+        """
+        Removes the current ship from the game and respawns a new one if one
+        remains.
+        """
         self.ship.kill()
         self.ships_remaining -= 1
         if not self.is_game_over():
             self.event_queue.defer(EVENT_SPAWN_SHIP, 1000)
 
     def kill_bullet(self, bullet):
+        """
+        Removes a bullet from the game.
+        """
         bullet.kill()
 
     def explode_asteroid(self, asteroid):
+        """
+        Explodes an asteroid into smaller fragments. Maintains the score.
+        """
         asteroid.kill()
         self.score += asteroid.reward
         frags = asteroid.explode()
@@ -110,11 +148,17 @@ class GameState:
         return frags
 
     def nuke_asteroids(self):
+        """
+        Removes all asteroids from the game. Useful for debugging.
+        """
         for asteroid in self.asteroids:
             asteroid.kill()
         self.event_queue.defer(EVENT_SPAWN_ASTEROID_WAVE, 1000)
 
     def handle_collisions(self):
+        """
+        Checks for collisions between game objects and handles them.
+        """
         for bullet in self.bullets:
             if asteroid := self.collision_checker.get_collision(bullet, self.asteroids):
                 self.kill_bullet(bullet)
@@ -126,5 +170,8 @@ class GameState:
                 self.explode_asteroid(asteroid)
 
     def update(self):
+        """
+        Updates all objects (positions, velocities, etc) in the game.
+        """
         self.handle_collisions()
         self.objects.update()

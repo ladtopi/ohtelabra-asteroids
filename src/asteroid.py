@@ -13,6 +13,10 @@ REWARDS = [0, 25, 100, 250]
 
 
 class Asteroid(SpaceObject):
+    """
+    Class representing an asteroid in the game.
+    """
+
     def __init__(self, size=ASTEROID_INIT_SIZE, **kwargs):
         super().__init__(
             **kwargs,
@@ -23,6 +27,9 @@ class Asteroid(SpaceObject):
         self.reward = REWARDS[size]
 
     def explode(self):
+        """
+        Explodes the asteroid into smaller fragments.
+        """
         frags = []
         if self.size > 1:
             for _ in range(2):

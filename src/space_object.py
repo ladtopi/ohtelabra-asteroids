@@ -35,6 +35,12 @@ class SpaceObject(pygame.sprite.Sprite):
 
     @property
     def angle(self):
+        """
+        Return the angle of the object in degrees.
+
+        Returns:
+            int: The angle of the object in degrees.
+        """
         angle = round(UP.angle_to(self.direction))
         if angle < 0:
             return 360 + angle
@@ -42,25 +48,46 @@ class SpaceObject(pygame.sprite.Sprite):
 
     @property
     def position(self):
+        """
+        Returns the position of the object as a tuple.
+
+        Returns:
+            (int, int): The position of the object as a tuple.
+        """
         return (self._position.x, self._position.y)
 
     def rotate_right(self, degrees=1):
+        """
+        Rotate the object to the right, meaning clockwise.
+
+        Args:
+            degrees (int, optional): Degrees to turn. Defaults to 1.
+        """
         self.direction.rotate_ip(degrees)
         self.image = pygame.transform.rotate(self.image_original, -self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
 
     def rotate_left(self, degrees=1):
+        """
+        Rotate the object to the left, meaning counterclockwise.
+
+        Args:
+            degrees (int, optional): Degrees to turn. Defaults to 1.
+        """
         self.direction.rotate_ip(-degrees)
         self.image = pygame.transform.rotate(self.image_original, -self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
 
     def update(self):
+        """
+        Update the position of the object based on its velocity and acceleration.
+        """
         self.velocity *= (1-self.friction)
         self._position += self.velocity
-        self.screen_wrap()
+        self._screen_wrap()
         self.rect.center = self._position
 
-    def screen_wrap(self):
+    def _screen_wrap(self):
         w, h = self.rect.size
         scr_w, scr_h = self.display.get_size()
         if self._position.x + w/2 < 0:

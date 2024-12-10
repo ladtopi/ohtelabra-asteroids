@@ -12,6 +12,10 @@ SHIP_MAX_SPEED = 2
 
 
 class Ship(SpaceObject):
+    """
+    Class representing the player's ship.
+    """
+
     def __init__(self, **kwargs):
         super().__init__(
             **kwargs,
@@ -21,11 +25,20 @@ class Ship(SpaceObject):
         )
 
     def thrust(self):
+        """
+        Accelerates the ship in the direction it is facing.
+        """
         if self.velocity.length() < SHIP_MAX_SPEED:
             self.velocity += pygame.Vector2(
                 0, (-self.acceleration)).rotate(self.angle)
 
     def fire(self):
+        """
+        Fires a bullet from the ship.
+
+        Returns:
+            Bullet: The bullet that was fired.
+        """
         v = pygame.Vector2(0, -1.25).rotate(self.angle)
         x, y = self.position
         return Bullet(

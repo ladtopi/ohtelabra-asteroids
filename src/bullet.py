@@ -8,6 +8,10 @@ pygame.gfxdraw.box(BULLET_IMAGE, BULLET_IMAGE.get_rect(), (255, 255, 255))
 
 
 class Bullet(SpaceObject):
+    """
+    Class representing a bullet in the game.
+    """
+
     def __init__(self, ttl=350, **kwargs):
         super().__init__(
             **kwargs,
