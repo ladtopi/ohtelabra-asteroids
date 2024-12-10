@@ -11,6 +11,7 @@ samalla mahdollisimman monta asteroidia.
 
 ## Dokumentaatio
 
+- [Käyttöohje](dokumentaatio/kayttoohje.md)
 - [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
 - [Arkkitehtuurikuvaus](dokumentaatio/arkkitehtuuri.md)
 - [Työaikakirjanpito](dokumentaatio/tuntikirjanpito.md)
@@ -38,7 +39,3 @@ poetry run invoke start
 - Yksikkötestien ajaminen: `poetry run invoke test`
 - Pylint-tarkistukset: `poetry run invoke lint`
 - HTML-muotoisen testikattavuusraportin generoiminen: `poetry run invoke coverage-report`
-
-## Lyhyt käyttöohje
-
-Avaruusalusta käännetään nuolinäppäimillä, ja kiihdyttää voi ylänuolella. Ampua voi välilyönnillä. Pelin tavoitteena on tuhota mahdollisimman monta asteroidia ja selviytyä mahdollisimman pitkään.
