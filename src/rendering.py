@@ -13,6 +13,7 @@ class GameRenderer:
         self.display.fill((0, 0, 0))
         state.objects.draw(self.display)
         self.render_lives(state)
+        self.render_bullets(state)
         self.render_asteroids(state)
         self.render_score(state)
         self.render_game_over(state)
@@ -23,6 +24,12 @@ class GameRenderer:
         text = font.render(
             f"Ships: {state.ships_remaining}", True, (255, 255, 255))
         self.display.blit(text, (10, 10))
+
+    def render_bullets(self, state):
+        font = pygame.font.SysFont(FONT_SYS_MONO, 24)
+        text = font.render(
+            f"Bullets: {state.bullets_remaining}", True, (255, 255, 255))
+        self.display.blit(text, (10, 34))
 
     def render_asteroids(self, state):
         # conveneince for development

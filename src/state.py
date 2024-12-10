@@ -31,6 +31,10 @@ class GameState:
     def asteroids_remaining(self):
         return len(self.asteroids)
 
+    @property
+    def bullets_remaining(self):
+        return self.ship.bullets_remaining if self.ship and self.ship.alive() else 0
+
     def reset(self):
         """
         Resets the game state to the initial state.
@@ -93,8 +97,9 @@ class GameState:
         Fires the ship's weapon.
         """
         bullet = self.ship.fire()
-        self.objects.add(bullet)
-        self.bullets.add(bullet)
+        if bullet:
+            self.objects.add(bullet)
+            self.bullets.add(bullet)
         return bullet
 
     def thrust_ship(self):

@@ -9,6 +9,7 @@ SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
 pygame.gfxdraw.filled_trigon(SHIP_IMAGE, 0, SHIP_SIZE, SHIP_SIZE //
                              2, 0, SHIP_SIZE, SHIP_SIZE, (255, 255, 255))
 SHIP_MAX_SPEED = 2
+SHIP_BULLETS = 50
 
 
 class Ship(SpaceObject):
@@ -23,6 +24,7 @@ class Ship(SpaceObject):
             acceleration=0.002,
             friction=0.0005,
         )
+        self.bullets_remaining = SHIP_BULLETS
 
     def thrust(self):
         """
@@ -39,8 +41,11 @@ class Ship(SpaceObject):
         Returns:
             Bullet: The bullet that was fired.
         """
+        if self.bullets_remaining < 1:
+            return
         v = pygame.Vector2(0, -1.25).rotate(self.angle)
         x, y = self.position
+        self.bullets_remaining -= 1
         return Bullet(
             x=x,
             y=y,
