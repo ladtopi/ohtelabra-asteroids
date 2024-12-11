@@ -12,6 +12,12 @@ def draw_text(screen, text, pos, size=24, color=(255, 255, 255)):
     return screen.blit(text, (x, y))
 
 
+def draw_text_below(screen, text, rect, margin=10, size=24, color=(255, 255, 255)):
+    x, y = rect.topleft
+    y += rect.height + margin
+    return draw_text(screen, text, (x, y), size, color)
+
+
 def draw_centered(screen, surf, y=None):
     x = (screen.get_width() - surf.get_width()) // 2
     y = y or (screen.get_height() - surf.get_height()) // 2

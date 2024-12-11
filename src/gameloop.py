@@ -1,6 +1,7 @@
 import pygame
+from leaderboard import Leaderboard
 from score import Score
-from state import GameOverState, GameState, MenuState, PlayingState
+from state import GameOverState, GameState, MenuState, PlayingState, SubmitScoreState
 
 
 class GameLoop:
@@ -10,10 +11,12 @@ class GameLoop:
 
     def __init__(self, state=GameState.MENU):
         self._score = Score()
+        self._leaderboard = Leaderboard()
         self._state_map = {
-            GameState.MENU: MenuState(),
+            GameState.MENU: MenuState(self._leaderboard),
             GameState.PLAYING: PlayingState(self._score),
             GameState.GAME_OVER: GameOverState(self._score),
+            GameState.SUBMIT_SCORE: SubmitScoreState(self._score, self._leaderboard),
         }
         self._state = self._state_map[state]
         self._running = True
@@ -36,11 +39,10 @@ class GameLoop:
         self._state.enter()
 
     def _handle_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self._running = False
-            else:
-                self._state.handle_event(event)
+        if pygame.event.get(eventtype=pygame.QUIT):
+            self._running = False
+        else:
+            self._state.handle_events(pygame.event.get())
 
     def _handle_keys(self):
         if pygame.key.get_pressed()[pygame.K_ESCAPE]:
