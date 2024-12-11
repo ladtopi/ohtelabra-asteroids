@@ -10,9 +10,9 @@ from ship import Ship
 INITIAL_WAVE_SIZE = 3
 
 
-class GameState:
+class World:
     """
-    Holds and manages the gameplay state.
+    Holds and manages the game world.
     """
 
     def __init__(self, collision_checker, event_queue, display):

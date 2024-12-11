@@ -4,7 +4,7 @@ from collisions import CollisionChecker
 from events import EventQueue
 from gameloop import GameLoop
 from keyboard import Keyboard
-from state import GameState
+from world import World
 from rendering import GameRenderer
 
 
@@ -19,9 +19,9 @@ def main():
     collision_checker = CollisionChecker()
     event_queue = EventQueue()
     keyboard = Keyboard()
-    state = GameState(collision_checker, event_queue, display).reset()
+    world = World(collision_checker, event_queue, display).reset()
     renderer = GameRenderer(display, pygame.display.flip)
-    loop = GameLoop(state, renderer, event_queue, keyboard)
+    loop = GameLoop(world, renderer, event_queue, keyboard)
 
     loop.run()
 
