@@ -1,5 +1,5 @@
 import pygame
-from state import GameState, MenuState, PlayingState
+from state import GameOverState, GameState, MenuState, PlayingState
 
 
 class GameLoop:
@@ -11,6 +11,7 @@ class GameLoop:
         self._state_map = {
             GameState.MENU: MenuState(),
             GameState.PLAYING: PlayingState(),
+            GameState.GAME_OVER: GameOverState(),
         }
         self._state = self._state_map[state]
         self._running = True
@@ -29,7 +30,6 @@ class GameLoop:
             pygame.display.flip()
 
     def _move_to(self, state):
-        self._state.cleanup()
         self._state = self._state_map[state]
         self._state.enter()
 

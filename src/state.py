@@ -7,14 +7,21 @@ from draw import draw_centered_text, draw_centered_text_below, draw_text
 
 
 class BaseGameState:
-    def enter(self):
-        pass
+    def __init__(self):
+        self._next = None
 
-    def cleanup(self):
+    def request_transition(self, state):
+        self._next = state
+
+    def enter(self):
+        self._next = None
+        self.reset()
+
+    def reset(self):
         pass
 
     def next(self):
-        pass
+        return self._next
 
     def draw(self, screen):
         pass
@@ -30,13 +37,10 @@ class BaseGameState:
 
 
 class MenuState(BaseGameState):
-    def __init__(self):
-        self._next = None
-
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                self._next = GameState.PLAYING
+                self.request_transition(GameState.PLAYING)
 
     def next(self):
         return self._next
@@ -49,8 +53,12 @@ class MenuState(BaseGameState):
 
 class PlayingState(BaseGameState):
     def __init__(self):
+        super().__init__()
         self._world = World(CollisionChecker(), EventQueue(),
                             pygame.display.get_surface())
+
+    def reset(self):
+        self._world.reset()
 
     def handle_event(self, event):
         if event.type == EVENT_SPAWN_SHIP:
@@ -60,8 +68,6 @@ class PlayingState(BaseGameState):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 self._world.fire_ship()
-            if event.key == pygame.K_RETURN and self._world.is_game_over():
-                self._world.reset()
             if event.key == pygame.K_r and event.mod & pygame.KMOD_CTRL:
                 self._world.reset()
             if event.key == pygame.K_d and event.mod & pygame.KMOD_CTRL:
@@ -77,6 +83,8 @@ class PlayingState(BaseGameState):
 
     def update(self):
         self._world.update()
+        if self._world.is_game_over():
+            self.request_transition(GameState.GAME_OVER)
 
     def draw(self, screen):
         screen.fill((0, 0, 0))
@@ -85,7 +93,6 @@ class PlayingState(BaseGameState):
         self.render_bullets(screen)
         self.render_asteroids(screen)
         self.render_score(screen)
-        self.render_game_over(screen)
 
     def render_lives(self, screen):
         draw_text(
@@ -103,14 +110,22 @@ class PlayingState(BaseGameState):
     def render_score(self, screen):
         draw_text(screen, f"Score: {self._world.score}", (-10, 10))
 
-    def render_game_over(self, screen):
-        if self._world.is_game_over():
-            title = draw_centered_text(
-                screen, "Game Over", size=36, color=(255, 0, 0))
-            draw_centered_text_below(
-                screen, "Press ENTER to start a new game", title)
+
+class GameOverState(BaseGameState):
+    def handle_event(self, event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                self.request_transition(GameState.PLAYING)
+
+    def draw(self, screen):
+        screen.fill((0, 0, 0))
+        title_rect = draw_centered_text(
+            screen, "Game Over", size=36, color=(255, 0, 0))
+        draw_centered_text_below(
+            screen, "Press ENTER to start a new game", title_rect)
 
 
 class GameState(Enum):
     MENU = auto()
     PLAYING = auto()
+    GAME_OVER = auto()
