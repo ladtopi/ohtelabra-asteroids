@@ -3,7 +3,7 @@ import pygame
 from collisions import CollisionChecker
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP, EventQueue
 from world import World
-from draw import draw_centered_text, draw_centered_text_below
+from draw import draw_centered_text, draw_centered_text_below, draw_text
 
 
 class BaseGameState:
@@ -88,45 +88,27 @@ class PlayingState(BaseGameState):
         self.render_game_over(screen)
 
     def render_lives(self, screen):
-        font = pygame.font.SysFont(None, 24)
-        text = font.render(
-            f"Ships: {self._world.ships_remaining}", True, (255, 255, 255))
-        screen.blit(text, (10, 10))
+        draw_text(
+            screen, f"Ships: {self._world.ships_remaining}", (10, 10))
 
     def render_bullets(self, screen):
-        font = pygame.font.SysFont(None, 24)
-        text = font.render(
-            f"Bullets: {self._world.bullets_remaining}", True, (255, 255, 255))
-        screen.blit(text, (10, 34))
+        draw_text(
+            screen, f"Bullets: {self._world.bullets_remaining}", (10, 34))
 
     def render_asteroids(self, screen):
         # conveneince for development
-        font = pygame.font.SysFont(None, 24)
-        text = font.render(
-            f"Asteroids: {self._world.asteroids_remaining}", True, (0, 0, 255))
-        screen.blit(text, (screen.get_width() //
-                           2 - text.get_width() // 2, 10))
+        draw_centered_text(
+            screen, f"Asteroids: {self._world.asteroids_remaining}", 10)
 
     def render_score(self, screen):
-        font = pygame.font.SysFont(None, 24)
-        text = font.render(
-            f"Score: {self._world.score}", True, (255, 255, 255))
-        screen.blit(text, (screen.get_width() -
-                           10 - text.get_width(), 10))
+        draw_text(screen, f"Score: {self._world.score}", (-10, 10))
 
     def render_game_over(self, screen):
         if self._world.is_game_over():
-            font_lg = pygame.font.SysFont(None, 36)
-            font_md = pygame.font.SysFont(None, 24)
-            game_over_text = font_lg.render("Game Over", True, (255, 0, 0))
-            continue_text = font_md.render(
-                "Press ENTER to start a new game", True, (255, 255, 255))
-            x = screen.get_width() / 2 - game_over_text.get_width() / 2
-            y = screen.get_height() / 2 - game_over_text.get_height() / 2
-            screen.blit(game_over_text, (x, y))
-            x = screen.get_width() / 2 - continue_text.get_width() / 2
-            y += game_over_text.get_height()
-            screen.blit(continue_text, (x, y))
+            title = draw_centered_text(
+                screen, "Game Over", size=36, color=(255, 0, 0))
+            draw_centered_text_below(
+                screen, "Press ENTER to start a new game", title)
 
 
 class GameState(Enum):

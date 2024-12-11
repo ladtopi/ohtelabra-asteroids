@@ -1,6 +1,17 @@
 import pygame
 
 
+def draw_text(screen, text, pos, size=24, color=(255, 255, 255)):
+    font = pygame.font.SysFont(None, size)
+    text = font.render(text, True, color)
+    x, y = pos
+    if x < 0:
+        x = screen.get_width() + x - text.get_width()
+    if y < 0:
+        y = screen.get_height() + y - text.get_height()
+    return screen.blit(text, (x, y))
+
+
 def draw_centered(screen, surf, y=None):
     x = (screen.get_width() - surf.get_width()) // 2
     y = y or (screen.get_height() - surf.get_height()) // 2
