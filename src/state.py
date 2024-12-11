@@ -3,6 +3,7 @@ import pygame
 from collisions import CollisionChecker
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP, EventQueue
 from world import World
+from draw import draw_centered_text, draw_centered_text_below
 
 
 class BaseGameState:
@@ -10,6 +11,9 @@ class BaseGameState:
         pass
 
     def cleanup(self):
+        pass
+
+    def next(self):
         pass
 
     def draw(self, screen):
@@ -23,6 +27,24 @@ class BaseGameState:
 
     def update(self):
         pass
+
+
+class MenuState(BaseGameState):
+    def __init__(self):
+        self._next = None
+
+    def handle_event(self, event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                self._next = GameState.PLAYING
+
+    def next(self):
+        return self._next
+
+    def draw(self, screen):
+        screen.fill((0, 0, 0))
+        title_rect = draw_centered_text(screen, "Asteroids", size=36)
+        draw_centered_text_below(screen, "Press ENTER to start", title_rect)
 
 
 class PlayingState(BaseGameState):
@@ -108,4 +130,5 @@ class PlayingState(BaseGameState):
 
 
 class GameState(Enum):
+    MENU = auto()
     PLAYING = auto()
