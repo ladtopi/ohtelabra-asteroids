@@ -1,4 +1,5 @@
 import pygame
+from db import Database
 from leaderboard import Leaderboard
 from score import Score
 from state import GameOverState, GameState, MenuState, PlayingState, SubmitScoreState
@@ -11,7 +12,7 @@ class GameLoop:
 
     def __init__(self, state=GameState.MENU):
         self._score = Score()
-        self._leaderboard = Leaderboard()
+        self._leaderboard = Leaderboard(Database())
         self._state_map = {
             GameState.MENU: MenuState(self._leaderboard),
             GameState.PLAYING: PlayingState(self._score),

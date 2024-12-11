@@ -3,6 +3,7 @@ import pygame
 from pygame_textinput import TextInputManager, TextInputVisualizer
 from collisions import CollisionChecker
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP, EventQueue
+from leaderboard import LeaderboardEntry
 from world import World
 from draw import draw_centered_text, draw_centered_text_below, draw_text, draw_text_below
 
@@ -185,7 +186,8 @@ class SubmitScoreState(BaseGameState):
         name = self._name_input.value
         if len(name) < 3:
             return False
-        self._leaderboard.submit_score(name, self._score)
+        self._leaderboard.add_entry(
+            LeaderboardEntry.from_score(name, self._score))
         return True
 
     def draw(self, screen):
