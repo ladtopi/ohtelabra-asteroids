@@ -30,35 +30,6 @@ class EventQueueStub:
         self.deferred_events = []
 
 
-class TestWorldReset(unittest.TestCase):
-    def setUp(self):
-        self.events = EventQueueStub()
-        self.collision_checker = CollisionChecker()
-        self.world = World(self.collision_checker,
-                           self.events, DisplayStub())
-
-    def test_state_should_be_empty_first(self):
-        self.world = World(self.collision_checker,
-                           self.events, DisplayStub())
-        self.assertEqual(len(self.world.objects), 0)
-        self.assertEqual(self.world.ship, None)
-        self.assertEqual(self.world.score, None)
-        self.assertEqual(self.world.ships_remaining, None)
-
-    def test_score_is_zero_after_reset(self):
-        self.world.reset()
-        self.assertEqual(self.world.score, 0)
-
-    def test_reset_spawns_ship(self):
-        self.world.reset()
-        self.assertTrue(self.world.ship is not None)
-        self.assertTrue(self.world.ship.alive())
-
-    def test_reset_should_spawn_asteroids(self):
-        self.world.reset()
-        self.assertGreater(len(self.world.asteroids), 0)
-
-
 class TestWorld(unittest.TestCase):
     def setUp(self):
         self.events = EventQueueStub()
@@ -67,6 +38,18 @@ class TestWorld(unittest.TestCase):
         self.world = World(self.collision_checker,
                            self.events, DisplayStub())
         self.world.reset()
+
+    def test_score_is_initially_zero(self):
+        self.world.reset()
+        self.assertEqual(self.world.score, 0)
+
+    def test_ship_is_initially_alive(self):
+        self.assertTrue(self.world.ship is not None)
+        self.assertTrue(self.world.ship.alive())
+
+    def test_world_has_asteroids(self):
+        self.world.reset()
+        self.assertGreater(len(self.world.asteroids), 0)
 
     def test_fire_ship_adds_bullet(self):
         self.world.fire_ship()

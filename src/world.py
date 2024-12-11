@@ -27,6 +27,8 @@ class World:
         self.ships_remaining = None
         self.waves = None
 
+        self.reset()
+
     @property
     def asteroids_remaining(self):
         return len(self.asteroids)
