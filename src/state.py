@@ -52,10 +52,11 @@ class MenuState(BaseGameState):
 
 
 class PlayingState(BaseGameState):
-    def __init__(self):
+    def __init__(self, score):
         super().__init__()
+        self._score = score
         self._world = World(CollisionChecker(), EventQueue(),
-                            pygame.display.get_surface())
+                            pygame.display.get_surface(), score)
 
     def reset(self):
         self._world.reset()
@@ -108,10 +109,14 @@ class PlayingState(BaseGameState):
             screen, f"Asteroids: {self._world.asteroids_remaining}", 10)
 
     def render_score(self, screen):
-        draw_text(screen, f"Score: {self._world.score}", (-10, 10))
+        draw_text(screen, f"Score: {self._score}", (-10, 10))
 
 
 class GameOverState(BaseGameState):
+    def __init__(self, score):
+        super().__init__()
+        self._score = score
+
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
@@ -119,10 +124,14 @@ class GameOverState(BaseGameState):
 
     def draw(self, screen):
         screen.fill((0, 0, 0))
-        title_rect = draw_centered_text(
+        rect = draw_centered_text(
             screen, "Game Over", size=36, color=(255, 0, 0))
+        rect = draw_centered_text_below(
+            screen, f"Score: {self._score}", rect)
+        rect = draw_centered_text_below(
+            screen, f"Bullets used: {self._score.bullets_used}", rect)
         draw_centered_text_below(
-            screen, "Press ENTER to start a new game", title_rect)
+            screen, "Press ENTER to start a new game", rect)
 
 
 class GameState(Enum):

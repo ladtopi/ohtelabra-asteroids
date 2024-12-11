@@ -15,15 +15,15 @@ class World:
     Holds and manages the game world.
     """
 
-    def __init__(self, collision_checker, event_queue, display):
+    def __init__(self, collision_checker, event_queue, display, score):
         self.collision_checker = collision_checker
         self.event_queue = event_queue
         self.display = display
         self.objects = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.asteroids = pygame.sprite.Group()
+        self.score = score
         self.ship = None
-        self.score = None
         self.ships_remaining = None
         self.waves = None
 
@@ -45,7 +45,7 @@ class World:
         self.bullets.empty()
         self.asteroids.empty()
 
-        self.score = 0
+        self.score.reset()
         self.ships_remaining = 3
         self.waves = 0
 
@@ -102,6 +102,7 @@ class World:
         if bullet:
             self.objects.add(bullet)
             self.bullets.add(bullet)
+            self.score.use_bullet()
         return bullet
 
     def thrust_ship(self):
@@ -146,7 +147,7 @@ class World:
         Explodes an asteroid into smaller fragments. Maintains the score.
         """
         asteroid.kill()
-        self.score += asteroid.reward
+        self.score.award_pts(asteroid.reward)
         frags = asteroid.explode()
         self.objects.add(*frags)
         self.asteroids.add(*frags)

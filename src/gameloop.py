@@ -1,4 +1,5 @@
 import pygame
+from score import Score
 from state import GameOverState, GameState, MenuState, PlayingState
 
 
@@ -8,10 +9,11 @@ class GameLoop:
     """
 
     def __init__(self, state=GameState.MENU):
+        self._score = Score()
         self._state_map = {
             GameState.MENU: MenuState(),
-            GameState.PLAYING: PlayingState(),
-            GameState.GAME_OVER: GameOverState(),
+            GameState.PLAYING: PlayingState(self._score),
+            GameState.GAME_OVER: GameOverState(self._score),
         }
         self._state = self._state_map[state]
         self._running = True
