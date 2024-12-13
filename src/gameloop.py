@@ -1,7 +1,9 @@
 import pygame
+from collisions import CollisionChecker
 from db import Database
+from events import EventQueue
+from game import Game
 from leaderboard import Leaderboard
-from score import Score
 from state import GameOverState, GameState, MenuState, PlayingState, SubmitScoreState
 
 
@@ -11,13 +13,15 @@ class GameLoop:
     """
 
     def __init__(self, state=GameState.MENU):
-        self._score = Score()
+        self._game = Game(CollisionChecker(),
+                          EventQueue(),
+                          pygame.display.get_surface())
         self._leaderboard = Leaderboard(Database())
         self._state_map = {
             GameState.MENU: MenuState(self._leaderboard),
-            GameState.PLAYING: PlayingState(self._score),
-            GameState.GAME_OVER: GameOverState(self._score),
-            GameState.SUBMIT_SCORE: SubmitScoreState(self._score, self._leaderboard),
+            GameState.PLAYING: PlayingState(self._game),
+            GameState.GAME_OVER: GameOverState(self._game),
+            GameState.SUBMIT_SCORE: SubmitScoreState(self._game, self._leaderboard),
         }
         self._state = self._state_map[state]
         self._running = True

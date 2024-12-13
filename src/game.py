@@ -2,6 +2,7 @@ import random
 import pygame
 
 from asteroid import Asteroid
+from bullet import Bullet
 from cartesian import random_coords
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
 from ship import Ship
@@ -15,14 +16,13 @@ class Game:
     Holds and manages the game state.
     """
 
-    def __init__(self, collision_checker, event_queue, display, score):
+    def __init__(self, collision_checker, event_queue, display):
         self.collision_checker = collision_checker
         self.event_queue = event_queue
         self.display = display
         self.objects = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.asteroids = pygame.sprite.Group()
-        self.score = score
         self.ship = None
         self.ships_remaining = None
         self.waves = None
@@ -45,9 +45,10 @@ class Game:
         self.bullets.empty()
         self.asteroids.empty()
 
-        self.score.reset()
-        self.ships_remaining = 3
+        self.score = 0
         self.waves = 0
+        self.bullets_used = 0
+        self.ships_remaining = 3
 
         self.spawn_ship()
         self.spawn_asteroid_wave()
@@ -102,7 +103,7 @@ class Game:
         if bullet:
             self.objects.add(bullet)
             self.bullets.add(bullet)
-            self.score.use_bullet()
+            self.bullets_used += 1
         return bullet
 
     def thrust_ship(self):
@@ -136,18 +137,18 @@ class Game:
         if not self.is_game_over():
             self.event_queue.defer(EVENT_SPAWN_SHIP, 1000)
 
-    def kill_bullet(self, bullet):
+    def kill_bullet(self, bullet: Bullet):
         """
         Removes a bullet from the game.
         """
         bullet.kill()
 
-    def explode_asteroid(self, asteroid):
+    def explode_asteroid(self, asteroid: Asteroid):
         """
         Explodes an asteroid into smaller fragments. Maintains the score.
         """
         asteroid.kill()
-        self.score.award_pts(asteroid.reward)
+        self.score += asteroid.reward
         frags = asteroid.explode()
         self.objects.add(*frags)
         self.asteroids.add(*frags)

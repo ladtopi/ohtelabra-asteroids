@@ -3,7 +3,6 @@ from unittest.mock import Mock
 
 from collisions import CollisionChecker
 from events import EVENT_SPAWN_SHIP
-from score import Score
 from game import Game
 
 
@@ -37,7 +36,8 @@ class TestGame(unittest.TestCase):
         self.collision_checker = Mock(wraps=CollisionChecker())
         self.collision_checker.get_collision = Mock(return_value=None)
         self.game = Game(self.collision_checker,
-                         self.events, DisplayStub(), score=Score())
+                         self.events,
+                         DisplayStub())
         self.game.reset()
 
     def test_score_is_initially_zero(self):
