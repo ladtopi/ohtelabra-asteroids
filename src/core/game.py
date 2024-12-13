@@ -56,15 +56,10 @@ class Game:
 
         return self
 
-    def spawn_asteroid(self, x=0, y=0, vx=0, vy=0, size=3):
-        """
-        Spawns an asteroid at the given position with the given velocity and size.
-        """
-        asteroid = Asteroid(x=x, y=y, vx=vx, vy=vy,
-                            display=self.display, size=size)
+    def place_asteroid(self, asteroid: Asteroid):
+        asteroid.display = self.display
         self.objects.add(asteroid)
         self.asteroids.add(asteroid)
-        return asteroid
 
     def spawn_asteroid_wave(self):
         """
@@ -75,14 +70,16 @@ class Game:
         for _ in range(INITIAL_WAVE_SIZE + (self.waves // 2)):
             ship_x, ship_y = self.ship.position
             w, h = self.display.get_size()
-            center = random_coords((w, h), (ship_x, ship_y, 0, 0), 80)
+            x, y = random_coords((w, h), (ship_x, ship_y, 0, 0), 80)
             vx = random.uniform(0.05, 0.25)
             vy = random.uniform(0.05, 0.25)
             if random.choice([True, False]):
                 vx *= -1
             if random.choice([True, False]):
                 vy *= -1
-            asteroids.append(self.spawn_asteroid(*center, vx=vx, vy=vy))
+            asteroids.append(
+                Asteroid(x=x, y=y, vx=vx, vy=vy, display=self.display))
+        self.asteroids.add(*asteroids)
         return asteroids
 
     def spawn_ship(self):

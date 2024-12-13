@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 
 from collisions import CollisionChecker
+from core.asteroid import Asteroid
 from core.game import Game
 from events import EVENT_SPAWN_SHIP
 
@@ -78,17 +79,20 @@ class TestGame(unittest.TestCase):
         self.assertEqual(len(self.game.bullets), 0)
 
     def test_explode_asteroid_removes_asteroid(self):
-        asteroid = self.game.spawn_asteroid(400, 300, 0, 0)
+        asteroid = Asteroid(x=400, y=300, vx=0, vy=0)
+        self.game.place_asteroid(asteroid)
         self.game.explode_asteroid(asteroid)
         self.assertFalse(self.game.objects.has(asteroid))
 
     def test_explode_asteroid_creates_fragments(self):
-        asteroid = self.game.spawn_asteroid(400, 300, 0, 0)
+        asteroid = Asteroid(x=400, y=300, vx=0, vy=0)
+        self.game.place_asteroid(asteroid)
         frags = self.game.explode_asteroid(asteroid)
         self.assertGreater(len(frags), 0)
 
     def test_explode_asteroid_adds_fragments_to_game(self):
-        asteroid = self.game.spawn_asteroid(400, 300, 0, 0)
+        asteroid = Asteroid(x=400, y=300, vx=0, vy=0)
+        self.game.place_asteroid(asteroid)
         frags = self.game.explode_asteroid(asteroid)
         self.assertTrue(all(self.game.objects.has(frag) for frag in frags))
 
@@ -101,7 +105,8 @@ class TestGame(unittest.TestCase):
         self.assertNotEqual(ppos, self.game.ship.position)
 
     def test_update_moves_asteroids(self):
-        asteroid = self.game.spawn_asteroid(400, 300, .5, .5)
+        asteroid = Asteroid(x=400, y=300, vx=.5, vy=.5)
+        self.game.place_asteroid(asteroid)
         ppos = asteroid.position
         self.game.update()
         self.assertNotEqual(ppos, asteroid.position)
