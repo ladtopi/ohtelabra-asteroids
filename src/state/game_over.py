@@ -16,6 +16,7 @@ class GameOverState(BaseGameState):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    self._game.reset()
                     self.request_transition(GameState.PLAYING)
                 if event.key == pygame.K_SPACE:
                     self.request_transition(GameState.SUBMIT_SCORE)
