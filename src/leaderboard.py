@@ -8,10 +8,6 @@ class LeaderboardEntry:
     score: int
     bullets_used: int
 
-    @staticmethod
-    def from_score(name, score):
-        return LeaderboardEntry(name, score.score, score.bullets_used)
-
 
 class Leaderboard:
     def __init__(self, db):
