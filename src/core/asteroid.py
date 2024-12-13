@@ -2,7 +2,7 @@ import random
 import pygame
 import pygame.gfxdraw
 
-from space_object import SpaceObject
+from core.space_object import SpaceObject
 
 ASTEROID_IMAGE = pygame.Surface((70, 70), pygame.SRCALPHA)
 pygame.gfxdraw.filled_circle(ASTEROID_IMAGE, 35, 35, 34, (180, 220, 220))

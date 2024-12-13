@@ -1,12 +1,13 @@
 import random
+
 import pygame
 
-from asteroid import Asteroid
-from bullet import Bullet
 from cartesian import random_coords
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
-from ship import Ship
 
+from .asteroid import Asteroid
+from .bullet import Bullet
+from .ship import Ship
 
 INITIAL_WAVE_SIZE = 3
 

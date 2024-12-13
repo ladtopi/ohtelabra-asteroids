@@ -1,7 +1,7 @@
 import pygame
 import pygame.gfxdraw
 
-from space_object import SpaceObject
+from core.space_object import SpaceObject
 
 BULLET_IMAGE = pygame.Surface((4, 4), pygame.SRCALPHA)
 pygame.gfxdraw.box(BULLET_IMAGE, BULLET_IMAGE.get_rect(), (255, 255, 255))

@@ -1,10 +1,12 @@
 import pygame
+
 from collisions import CollisionChecker
+from core import Game
 from db import Database
 from events import EventQueue
-from game import Game
 from leaderboard import Leaderboard
-from state import GameState, GameOverState, MenuState, PlayingState, SubmitScoreState
+from state import (GameOverState, GameState, MenuState, PlayingState,
+                   SubmitScoreState)
 
 
 class GameLoop:

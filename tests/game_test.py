@@ -2,8 +2,8 @@ import unittest
 from unittest.mock import Mock
 
 from collisions import CollisionChecker
+from core.game import Game
 from events import EVENT_SPAWN_SHIP
-from game import Game
 
 
 class DisplayStub:

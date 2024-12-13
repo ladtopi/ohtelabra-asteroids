@@ -1,7 +1,7 @@
 import unittest
 
-from bullet import Bullet
-from ship import Ship
+from core.bullet import Bullet
+from core.ship import Ship
 
 
 class DisplayStub:

@@ -1,9 +1,11 @@
 
 import pygame
 from pygame_textinput import TextInputManager, TextInputVisualizer
-from draw import draw_centered_text
-from game import Game
+
+from core import Game
+from graphics import draw_centered_text
 from leaderboard import Leaderboard, LeaderboardEntry
+
 from .base import BaseGameState, GameState
 
 

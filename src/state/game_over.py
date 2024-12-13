@@ -1,7 +1,9 @@
 
 import pygame
-from draw import draw_centered_text, draw_centered_text_below
-from game import Game
+
+from core import Game
+from graphics import draw_centered_text, draw_centered_text_below
+
 from .base import BaseGameState, GameState
 
 

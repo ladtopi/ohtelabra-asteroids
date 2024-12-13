@@ -1,6 +1,6 @@
 import pygame
 
-from gameloop import GameLoop
+from loop import GameLoop
 
 
 def main():

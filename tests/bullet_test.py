@@ -1,6 +1,6 @@
 import unittest
 
-from bullet import Bullet
+from core.bullet import Bullet
 
 
 class DisplayStub:

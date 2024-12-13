@@ -1,8 +1,10 @@
 
 import pygame
-from draw import draw_centered_text, draw_text
+
+from core import Game
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
-from game import Game
+from graphics import draw_centered_text, draw_text
+
 from .base import BaseGameState, GameState
 
 

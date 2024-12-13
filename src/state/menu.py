@@ -1,7 +1,10 @@
 
 import pygame
-from draw import draw_centered_text, draw_centered_text_below, draw_text, draw_text_below
+
+from graphics import (draw_centered_text, draw_centered_text_below, draw_text,
+                      draw_text_below)
 from leaderboard import Leaderboard
+
 from .base import BaseGameState, GameState
 
 

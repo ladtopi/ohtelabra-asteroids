@@ -1,8 +1,8 @@
 import pygame
 import pygame.gfxdraw
 
-from bullet import Bullet
-from space_object import SpaceObject
+from core.bullet import Bullet
+from core.space_object import SpaceObject
 
 SHIP_SIZE = 40
 SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
