@@ -4,7 +4,7 @@ from db import Database
 from events import EventQueue
 from game import Game
 from leaderboard import Leaderboard
-from state import GameOverState, GameState, MenuState, PlayingState, SubmitScoreState
+from state import GameState, GameOverState, MenuState, PlayingState, SubmitScoreState
 
 
 class GameLoop:
