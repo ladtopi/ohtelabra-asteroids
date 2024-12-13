@@ -23,6 +23,7 @@ class GameLoop:
         self._state = state_map[starting_state]
         self._event_queue = event_queue
         self._keyboard = keyboard
+        self._clock = pygame.time.Clock()
         self._running = False
 
     def run(self):
@@ -38,6 +39,7 @@ class GameLoop:
             self._state.update()
             self._state.draw(self._screen)
             self._frame_cb()
+            self._clock.tick(60)
 
     def _move_to(self, state):
         self._state = self._state_map[state]

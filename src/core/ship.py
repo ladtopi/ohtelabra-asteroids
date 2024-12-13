@@ -8,7 +8,7 @@ SHIP_SIZE = 40
 SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
 pygame.gfxdraw.filled_trigon(SHIP_IMAGE, 0, SHIP_SIZE, SHIP_SIZE //
                              2, 0, SHIP_SIZE, SHIP_SIZE, (255, 255, 255))
-SHIP_MAX_SPEED = 2
+SHIP_MAX_SPEED = 10
 SHIP_BULLETS = 50
 
 
@@ -17,7 +17,7 @@ class Ship(SpaceObject):
     Class representing the player's ship.
     """
 
-    def __init__(self, acceleration=0.002, friction=0.0005, **kwargs):
+    def __init__(self, acceleration=.25, friction=.01, **kwargs):
         super().__init__(**kwargs, image=SHIP_IMAGE)
         self._acceleration = acceleration
         self._friction = friction
@@ -52,6 +52,6 @@ class Ship(SpaceObject):
             self._bullets -= 1
             return Bullet(
                 position=self._position,
-                velocity=self._velocity + UP.rotate(self.angle)*.75,
+                velocity=self._velocity + UP.rotate(self.angle)*8,
                 angle=self.angle,
             )

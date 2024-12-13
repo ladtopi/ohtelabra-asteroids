@@ -68,8 +68,8 @@ class Game:
         for _ in range(INITIAL_WAVE_SIZE + (self.waves // 2)):
             w, h = self.display.get_size()
             x, y = random_coords((w, h), (self.ship.x, self.ship.y, 0, 0), 100)
-            vx = random.uniform(0.05, 0.25)
-            vy = random.uniform(0.05, 0.25)
+            vx = random.uniform(0.5, 2)
+            vy = random.uniform(0.5, 2)
             if random.choice([True, False]):
                 vx *= -1
             if random.choice([True, False]):
@@ -112,13 +112,13 @@ class Game:
         """
         Rotates the ship to the right.
         """
-        self.ship.rotate_right()
+        self.ship.rotate_right(5)
 
     def rotate_ship_left(self):
         """
         Rotates the ship to the left
         """
-        self.ship.rotate_left()
+        self.ship.rotate_left(5)
 
     def is_game_over(self):
         return self.ships_remaining < 1

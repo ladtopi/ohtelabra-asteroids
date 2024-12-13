@@ -12,7 +12,7 @@ class Bullet(SpaceObject):
     Class representing a bullet in the game.
     """
 
-    def __init__(self, ttl=600, **kwargs):
+    def __init__(self, ttl=50, **kwargs):
         super().__init__(**kwargs, image=BULLET_IMAGE)
         self._ttl = ttl
 
