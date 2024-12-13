@@ -11,7 +11,7 @@ class DisplayStub:
 
 class TestShip(unittest.TestCase):
     def setUp(self):
-        self.ship = Ship(x=400, y=300, display=DisplayStub())
+        self.ship = Ship()
 
     def test_rotate_right_rotates_one_degree_clockwise(self):
         self.ship.rotate_right()
@@ -27,22 +27,25 @@ class TestShip(unittest.TestCase):
         self.assertEqual(self.ship.angle, 0)
 
     def test_thrust_increases_velocity_in_direction_of_ship(self):
-        self.ship.rotate_right(180)
+        self.ship = Ship(acceleration=1)
+        self.ship.rotate_right(45)
         self.ship.thrust()
-        self.assertEqual(self.ship.velocity.x, 0)
-        self.assertGreater(self.ship.velocity.y, 0)
+        self.assertGreater(abs(self.ship.vx), 0)
+        self.assertGreater(abs(self.ship.vy), 0)
 
     def test_thrust_increases_velocity_by_acceleration(self):
+        self.ship = Ship(acceleration=1)
         self.ship.rotate_right(180)
         self.ship.thrust()
-        self.assertEqual(self.ship.velocity.y, self.ship.acceleration)
+        self.assertEqual(self.ship.vy, 1)
 
     def test_thrust_increases_velocity_by_constant_steps(self):
+        self.ship = Ship(acceleration=.1)
         self.ship.rotate_right(180)
         self.ship.thrust()
         self.ship.thrust()
         self.ship.thrust()
-        self.assertEqual(self.ship.velocity.y, self.ship.acceleration * 3)
+        self.assertAlmostEqual(self.ship.vy, .3)
 
     def test_fire_creates_a_new_bullet(self):
         self.assertTrue(isinstance(self.ship.fire(), Bullet))

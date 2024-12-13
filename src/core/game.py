@@ -25,8 +25,6 @@ class Game:
         self.bullets = pygame.sprite.Group()
         self.asteroids = pygame.sprite.Group()
         self.ship = None
-        self.ships_remaining = None
-        self.waves = None
 
         self.reset()
 
@@ -57,9 +55,9 @@ class Game:
         return self
 
     def place_asteroid(self, asteroid: Asteroid):
-        asteroid.display = self.display
         self.objects.add(asteroid)
         self.asteroids.add(asteroid)
+        return asteroid
 
     def spawn_asteroid_wave(self):
         """
@@ -68,18 +66,17 @@ class Game:
         self.waves += 1
         asteroids = []
         for _ in range(INITIAL_WAVE_SIZE + (self.waves // 2)):
-            ship_x, ship_y = self.ship.position
             w, h = self.display.get_size()
-            x, y = random_coords((w, h), (ship_x, ship_y, 0, 0), 80)
+            x, y = random_coords((w, h), (self.ship.x, self.ship.y, 0, 0), 100)
             vx = random.uniform(0.05, 0.25)
             vy = random.uniform(0.05, 0.25)
             if random.choice([True, False]):
                 vx *= -1
             if random.choice([True, False]):
                 vy *= -1
-            asteroids.append(
-                Asteroid(x=x, y=y, vx=vx, vy=vy, display=self.display))
-        self.asteroids.add(*asteroids)
+            asteroids.append(self.place_asteroid(
+                Asteroid(position=(x, y), velocity=(vx, vy)))
+            )
         return asteroids
 
     def spawn_ship(self):
@@ -89,7 +86,7 @@ class Game:
         if self.ship and self.ship.alive():
             return None
         w, h = self.display.get_size()
-        self.ship = Ship(x=w/2, y=h/2, display=self.display)
+        self.ship = Ship(position=(w/2, h/2))
         self.objects.add(self.ship)
         return self.ship
 
@@ -181,4 +178,4 @@ class Game:
         Updates all objects (positions, velocities, etc) in the game.
         """
         self.handle_collisions()
-        self.objects.update()
+        self.objects.update(self.display.get_size())

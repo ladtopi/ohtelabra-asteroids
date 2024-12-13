@@ -2,7 +2,7 @@ import pygame
 import pygame.gfxdraw
 
 from core.bullet import Bullet
-from core.space_object import SpaceObject
+from core.space_object import INF, UP, SpaceObject
 
 SHIP_SIZE = 40
 SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
@@ -17,22 +17,29 @@ class Ship(SpaceObject):
     Class representing the player's ship.
     """
 
-    def __init__(self, **kwargs):
-        super().__init__(
-            **kwargs,
-            image=SHIP_IMAGE,
-            acceleration=0.002,
-            friction=0.0005,
-        )
-        self.bullets_remaining = SHIP_BULLETS
+    def __init__(self, acceleration=0.002, friction=0.0005, **kwargs):
+        super().__init__(**kwargs, image=SHIP_IMAGE)
+        self._acceleration = acceleration
+        self._friction = friction
+        self._bullets = SHIP_BULLETS
+
+    @property
+    def bullets_remaining(self):
+        return self._bullets
 
     def thrust(self):
         """
         Accelerates the ship in the direction it is facing.
         """
-        if self.velocity.length() < SHIP_MAX_SPEED:
-            self.velocity += pygame.Vector2(
-                0, (-self.acceleration)).rotate(self.angle)
+        if self._velocity.length() < SHIP_MAX_SPEED:
+            self._velocity += UP.rotate(self.angle) * self._acceleration
+
+    def update(self, area=(INF, INF)):
+        """
+        Updates the ship's position, velocity, and direction.
+        """
+        self._velocity *= 1 - self._friction
+        super().update(area)
 
     def fire(self):
         """
@@ -41,16 +48,10 @@ class Ship(SpaceObject):
         Returns:
             Bullet: The bullet that was fired.
         """
-        if self.bullets_remaining < 1:
-            return
-        v = pygame.Vector2(0, -1.25).rotate(self.angle)
-        x, y = self.position
-        self.bullets_remaining -= 1
-        return Bullet(
-            x=x,
-            y=y,
-            vx=self.velocity.x + v.x,
-            vy=self.velocity.y + v.y,
-            angle=self.angle,
-            display=self.display,
-        )
+        if self._bullets > 0:
+            self._bullets -= 1
+            return Bullet(
+                position=self._position,
+                velocity=self._velocity + UP.rotate(self.angle)*.75,
+                angle=self.angle,
+            )

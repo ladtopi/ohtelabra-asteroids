@@ -10,7 +10,7 @@ class DisplayStub:
 
 class TestBullet(unittest.TestCase):
     def setUp(self):
-        self.bullet = Bullet(x=400, y=300, ttl=2, display=DisplayStub())
+        self.bullet = Bullet(ttl=2)
 
     def test_bullet_should_get_ttl_from_constructor(self):
         self.assertEqual(self.bullet.ttl, 2)

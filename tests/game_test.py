@@ -79,19 +79,19 @@ class TestGame(unittest.TestCase):
         self.assertEqual(len(self.game.bullets), 0)
 
     def test_explode_asteroid_removes_asteroid(self):
-        asteroid = Asteroid(x=400, y=300, vx=0, vy=0)
+        asteroid = Asteroid()
         self.game.place_asteroid(asteroid)
         self.game.explode_asteroid(asteroid)
         self.assertFalse(self.game.objects.has(asteroid))
 
     def test_explode_asteroid_creates_fragments(self):
-        asteroid = Asteroid(x=400, y=300, vx=0, vy=0)
+        asteroid = Asteroid()
         self.game.place_asteroid(asteroid)
         frags = self.game.explode_asteroid(asteroid)
         self.assertGreater(len(frags), 0)
 
     def test_explode_asteroid_adds_fragments_to_game(self):
-        asteroid = Asteroid(x=400, y=300, vx=0, vy=0)
+        asteroid = Asteroid()
         self.game.place_asteroid(asteroid)
         frags = self.game.explode_asteroid(asteroid)
         self.assertTrue(all(self.game.objects.has(frag) for frag in frags))
@@ -105,7 +105,7 @@ class TestGame(unittest.TestCase):
         self.assertNotEqual(ppos, self.game.ship.position)
 
     def test_update_moves_asteroids(self):
-        asteroid = Asteroid(x=400, y=300, vx=.5, vy=.5)
+        asteroid = Asteroid(velocity=(1, 1))
         self.game.place_asteroid(asteroid)
         ppos = asteroid.position
         self.game.update()

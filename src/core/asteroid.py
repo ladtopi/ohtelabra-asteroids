@@ -7,8 +7,10 @@ from core.space_object import SpaceObject
 ASTEROID_IMAGE = pygame.Surface((70, 70), pygame.SRCALPHA)
 pygame.gfxdraw.filled_circle(ASTEROID_IMAGE, 35, 35, 34, (180, 220, 220))
 ASTEROID_INIT_SIZE = 3
+FRAGMENTS = 2
 
-
+IMAGES = [pygame.transform.scale_by(ASTEROID_IMAGE, factor) for factor in [
+    0, 0.33, 0.67, 1]]
 REWARDS = [0, 25, 100, 250]
 
 
@@ -17,32 +19,24 @@ class Asteroid(SpaceObject):
     Class representing an asteroid in the game.
     """
 
-    def __init__(self, size=ASTEROID_INIT_SIZE, **kwargs):
+    def __init__(self, level=ASTEROID_INIT_SIZE, **kwargs):
         super().__init__(
             **kwargs,
-            image=pygame.transform.scale_by(
-                ASTEROID_IMAGE, .6 ** (ASTEROID_INIT_SIZE-size)),
+            image=IMAGES[level],
         )
-        self.size = size
-        self.reward = REWARDS[size]
+        self.level = level
+        self.reward = REWARDS[level]
+
+    def _make_fragment(self):
+        return Asteroid(position=self._position,
+                        velocity=self._velocity.rotate(
+                            random.uniform(-45, 45)) * random.uniform(1.0, 1.2),
+                        level=self.level - 1,)
 
     def explode(self):
         """
         Explodes the asteroid into smaller fragments.
         """
-        frags = []
-        if self.size > 1:
-            for _ in range(2):
-                v = self.velocity * random.uniform(1.0, 1.2)
-                v = v.rotate(random.uniform(-45, 45))
-                x, y = self.position
-                frags.append(
-                    Asteroid(
-                        x=x,
-                        y=y,
-                        vx=v.x,
-                        vy=v.y,
-                        size=self.size - 1,
-                        display=self.display,
-                    ))
-        return frags
+        if self.level > 1:
+            return [self._make_fragment() for _ in range(FRAGMENTS)]
+        return []
