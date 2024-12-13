@@ -94,8 +94,9 @@ class Game:
         """
         Fires the ship's weapon.
         """
-        bullet = self.ship.fire()
-        if bullet:
+        if not self.ship.alive():
+            return None
+        if bullet := self.ship.fire():
             self.objects.add(bullet)
             self.bullets.add(bullet)
             self.bullets_used += 1

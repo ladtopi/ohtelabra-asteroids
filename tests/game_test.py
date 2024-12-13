@@ -121,3 +121,7 @@ class TestGame(unittest.TestCase):
         self.game.update()
         self.collision_checker.get_collision.assert_any_call(
             self.game.ship, self.game.asteroids)
+
+    def test_ship_cannot_fire_if_not_alive(self):
+        self.game.kill_ship()
+        self.assertIsNone(self.game.fire_ship())
