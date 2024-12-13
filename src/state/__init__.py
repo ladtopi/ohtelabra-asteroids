@@ -1,4 +1,4 @@
-from .base import GameState
+from .base import *
 from .menu import *
 from .playing import *
 from .game_over import *

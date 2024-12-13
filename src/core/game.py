@@ -3,7 +3,7 @@ import random
 import pygame
 
 from cartesian import random_coords
-from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
+from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP, EventQueue
 
 from .asteroid import Asteroid
 from .bullet import Bullet
@@ -17,7 +17,7 @@ class Game:
     Holds and manages the game state.
     """
 
-    def __init__(self, collision_checker, event_queue, display):
+    def __init__(self, collision_checker, display, event_queue=EventQueue()):
         self.collision_checker = collision_checker
         self.event_queue = event_queue
         self.display = display

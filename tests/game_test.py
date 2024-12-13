@@ -35,9 +35,9 @@ class TestGame(unittest.TestCase):
         self.events = EventQueueStub()
         self.collision_checker = Mock(wraps=CollisionChecker())
         self.collision_checker.get_collision = Mock(return_value=None)
-        self.game = Game(self.collision_checker,
-                         self.events,
-                         DisplayStub())
+        self.game = Game(collision_checker=self.collision_checker,
+                         event_queue=self.events,
+                         display=DisplayStub())
         self.game.reset()
 
     def test_score_is_initially_zero(self):
