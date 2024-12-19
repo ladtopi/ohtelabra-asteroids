@@ -62,9 +62,17 @@ class SpaceObject(pygame.sprite.Sprite):
     def vx(self):
         return self._velocity.x
 
+    @vx.setter
+    def vx(self, value: int):
+        self._velocity.x = value
+
     @property
     def vy(self):
         return self._velocity.y
+
+    @vy.setter
+    def vy(self, value: int):
+        self._velocity.y = value
 
     @property
     def angle(self):
@@ -88,6 +96,10 @@ class SpaceObject(pygame.sprite.Sprite):
             (int, int): The position of the object as a tuple.
         """
         return self._position.x, self._position.y
+
+    @property
+    def speed(self):
+        return self._velocity.length()
 
     def rotate_right(self, degrees=1):
         """
@@ -123,10 +135,10 @@ class SpaceObject(pygame.sprite.Sprite):
 
     def _screen_wrap(self, area: tuple[int, int]):
         if self.x < -self.w/2:
-            self.x += area[0] + self.w/2
+            self.x += area[0] + self.w
         if self.x > area[0] + self.w/2:
-            self.x -= area[0] + self.w/2
+            self.x -= area[0] + self.w
         if self.y < -self.h/2:
-            self.y += area[1] + self.h/2
+            self.y += area[1] + self.h
         if self.y > area[1] + self.h/2:
-            self.y -= area[1] + self.h/2
+            self.y -= area[1] + self.h

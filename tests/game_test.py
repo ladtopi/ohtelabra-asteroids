@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from collisions import CollisionChecker
 from core.asteroid import Asteroid
 from core.game import Game
-from events import EVENT_SPAWN_SHIP
+from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
 from tests._stubs import DisplayStub, EventQueueStub
 
 
@@ -28,11 +28,16 @@ class TestGame(unittest.TestCase):
 
     def test_game_has_asteroids(self):
         self.game.reset()
-        self.assertGreater(len(self.game.asteroids), 0)
+        self.assertGreater(self.game.asteroids_remaining, 0)
 
     def test_fire_ship_adds_bullet(self):
+        bullet = self.game.fire_ship()
+        self.assertTrue(self.game.objects.has(bullet))
+
+    def test_fire_decreases_bullets_remaining(self):
+        n = self.game.bullets_remaining
         self.game.fire_ship()
-        self.assertEqual(len(self.game.bullets), 1)
+        self.assertEqual(self.game.bullets_remaining, n-1)
 
     def test_kill_ship_decreases_remaining_ships(self):
         self.game.kill_ship()
@@ -53,7 +58,11 @@ class TestGame(unittest.TestCase):
     def test_kill_bullet_removes_bullet(self):
         bullet = self.game.fire_ship()
         self.game.kill_bullet(bullet)
-        self.assertEqual(len(self.game.bullets), 0)
+        self.assertFalse(self.game.objects.has(bullet))
+
+    def test_nuke_asteroids_removes_all_asteroids(self):
+        self.game.nuke_asteroids()
+        self.assertEqual(self.game.asteroids_remaining, 0)
 
     def test_explode_asteroid_removes_asteroid(self):
         asteroid = Asteroid()
@@ -72,6 +81,14 @@ class TestGame(unittest.TestCase):
         self.game.place_asteroid(asteroid)
         frags = self.game.explode_asteroid(asteroid)
         self.assertTrue(all(self.game.objects.has(frag) for frag in frags))
+
+    def test_explode_schedules_new_wave_if_no_asteroids_remain(self):
+        self.game.nuke_asteroids()
+        asteroid = Asteroid()
+        self.game.place_asteroid(asteroid)
+        self.game.explode_asteroid(asteroid)
+        self.assertEqual(self.events.deferred_events,
+                         [(EVENT_SPAWN_ASTEROID_WAVE, 1000)])
 
     def test_update_moves_ship(self):
         self.game.thrust_ship()
@@ -102,3 +119,8 @@ class TestGame(unittest.TestCase):
     def test_ship_cannot_fire_if_not_alive(self):
         self.game.kill_ship()
         self.assertIsNone(self.game.fire_ship())
+
+    def test_spawn_ship_places_new_ship(self):
+        self.game.kill_ship()
+        ship = self.game.spawn_ship()
+        self.assertEqual(self.game.ship, ship)

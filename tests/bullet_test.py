@@ -17,5 +17,6 @@ class TestBullet(unittest.TestCase):
     def test_bullet_should_be_killed_once_ttl_reached(self):
         self.bullet.update()
         self.bullet.update()
+        self.bullet.update()
         self.assertEqual(self.bullet.ttl, 0)
         self.assertFalse(self.bullet.alive())
