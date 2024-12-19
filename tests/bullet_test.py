@@ -3,11 +3,6 @@ import unittest
 from core.bullet import Bullet
 
 
-class DisplayStub:
-    def get_size(self):
-        return (800, 600)
-
-
 class TestBullet(unittest.TestCase):
     def setUp(self):
         self.bullet = Bullet(ttl=2)

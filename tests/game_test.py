@@ -5,30 +5,7 @@ from collisions import CollisionChecker
 from core.asteroid import Asteroid
 from core.game import Game
 from events import EVENT_SPAWN_SHIP
-
-
-class DisplayStub:
-    def get_size(self):
-        return (800, 600)
-
-
-class EventQueueStub:
-    def __init__(self):
-        self.events = []
-        self.deferred_events = []
-
-    def get(self):
-        return self.events
-
-    def post(self, event):
-        self.events.append(event)
-
-    def defer(self, event, ms):
-        self.deferred_events.append((event, ms))
-
-    def clear(self):
-        self.events = []
-        self.deferred_events = []
+from tests._stubs import DisplayStub, EventQueueStub
 
 
 class TestGame(unittest.TestCase):

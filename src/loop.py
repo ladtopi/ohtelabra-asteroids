@@ -26,6 +26,14 @@ class GameLoop:
         self._clock = pygame.time.Clock()
         self._running = False
 
+    @property
+    def state(self):
+        return self._state
+
+    @property
+    def running(self):
+        return self._running
+
     def run(self):
         """
         Runs the main game loop, handling events, updating the game state, and rendering the game.
@@ -40,6 +48,12 @@ class GameLoop:
             self._state.draw(self._screen)
             self._frame_cb()
             self._clock.tick(60)
+
+    def quit(self):
+        """
+        Stops the game loop.
+        """
+        self._running = False
 
     def _move_to(self, state):
         self._state = self._state_map[state]
