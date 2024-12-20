@@ -1,11 +1,32 @@
+from collections import defaultdict
+import os
+
 import pygame
 
 from graphics.colors import WHITE
 
+pygame.font.init()
 
-def draw_text(screen, text, pos, size=24, color=WHITE):
-    font = pygame.font.SysFont(None, size)
-    text = font.render(text, True, color)
+FONT_FILE = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__),
+        "..",
+        "assets",
+        "g7starforce.ttf"))
+
+
+def __get_font(size):
+    return pygame.font.Font(FONT_FILE, size)
+
+
+FONTS = defaultdict(lambda: __get_font(18))
+FONTS["sm"] = __get_font(16)
+FONTS["md"] = __get_font(20)
+FONTS["lg"] = __get_font(24)
+
+
+def draw_text(screen, text, pos, size="sm", color=WHITE):
+    text = FONTS[size].render(text.upper(), True, color)
     x, y = pos
     if x < 0:
         x = screen.get_width() + x - text.get_width()
@@ -26,9 +47,8 @@ def draw_centered(screen, surf, y=None):
     return screen.blit(surf, (x, y))
 
 
-def draw_centered_text(screen, text, y=None, size=24, color=WHITE):
-    font = pygame.font.SysFont(None, size)
-    text = font.render(text, True, color)
+def draw_centered_text(screen, text, y=None, size="sm", color=WHITE):
+    text = FONTS[size].render(text.upper(), True, color)
     return draw_centered(screen, text, y)
 
 

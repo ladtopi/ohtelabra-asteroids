@@ -25,12 +25,12 @@ class GameOverState(BaseGameState):
     def draw(self, screen):
         screen.fill(BLACK)
         rect = draw_centered_text(
-            screen, "Game Over", size=36, color=(255, 0, 0))
+            screen, "Game Over", size="lg", color=(255, 0, 0))
         rect = draw_centered_text_below(
-            screen, f"Score: {self._game.score}", rect, color=GREEN)
+            screen, f"Score: {self._game.score}", rect, color=GREEN, margin=20)
         rect = draw_centered_text_below(
             screen, f"Bullets used: {self._game.bullets_used}", rect, color=GREEN)
         rect = draw_centered_text_below(
-            screen, "Press ENTER to start a new game", rect)
+            screen, "Press ENTER to start a new game", rect, margin=20)
         rect = draw_centered_text_below(
-            screen, "Or SPACE to submit your score to leaderboard", rect)
+            screen, "Or SPACE to submit your score", rect)

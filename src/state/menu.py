@@ -26,7 +26,7 @@ class MenuState(BaseGameState):
     def draw(self, screen):
         screen.fill(BLACK)
         title_rect = draw_centered_text(
-            screen, "Asteroids", size=36, color=(255, 0, 0))
+            screen, "Asteroids", size="lg", color=(255, 0, 0))
         draw_centered_text_below(screen, "Press ENTER to start", title_rect)
         self._draw_leaderboard(screen)
 
