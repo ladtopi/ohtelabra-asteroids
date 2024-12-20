@@ -29,3 +29,12 @@
 ## Viikko 6
 
 - Pelaajalla on rajallinen määrä ammuksia (per avaruusalus)
+
+## Viikot 7-8
+
+- Pelissä on valikko
+- Pelissä on pysyväistallennettu parhaiden pelaajien pistetaulukko
+- Pelaaja voi tallentaa tuloksensa pistetaulukkoon pelin päätyttyä
+- Pelaaja voi aloittaa uuden pelin pelin päätyttyä
+- Pelin objektien liikettä on säädetty mielekkäämmän pelikokemuksen saavuttamiseksi
+- Pelin ulkoasua on paranneltu arcade-uskollisempaan suuntaan
