@@ -4,6 +4,7 @@ from pygame_textinput import TextInputManager, TextInputVisualizer
 
 from core import Game
 from graphics import draw_centered_text
+from graphics.colors import BLACK, WHITE, GREEN
 from leaderboard import Leaderboard, LeaderboardEntry
 
 from .base import BaseGameState, GameState
@@ -16,9 +17,9 @@ class SubmitScoreState(BaseGameState):
         self._leaderboard = leaderboard
         self._name_input = TextInputVisualizer(
             manager=TextInputManager(
-                validator=lambda x: x.isalnum() and len(x) <= 3),
-            font_color=(255, 255, 255),
-            cursor_color=(255, 255, 255),
+                validator=lambda x: x == "" or x.isalnum() and len(x) <= 3),
+            font_color=WHITE,
+            cursor_color=WHITE,
             cursor_width=12)
 
     def handle_events(self, events):
@@ -43,7 +44,7 @@ class SubmitScoreState(BaseGameState):
         self.request_transition(GameState.MENU)
 
     def draw(self, screen):
-        screen.fill((0, 0, 0))
+        screen.fill(BLACK)
         rect = draw_centered_text(
-            screen, "Name", size=36, color=(255, 0, 0))
+            screen, "Name", size=36, color=GREEN)
         screen.blit(self._name_input.surface, rect.move(0, 50))

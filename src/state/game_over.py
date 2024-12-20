@@ -3,6 +3,7 @@ import pygame
 
 from core import Game
 from graphics import draw_centered_text, draw_centered_text_below
+from graphics.colors import BLACK, GREEN
 
 from .base import BaseGameState, GameState
 
@@ -22,13 +23,13 @@ class GameOverState(BaseGameState):
                     self.request_transition(GameState.SUBMIT_SCORE)
 
     def draw(self, screen):
-        screen.fill((0, 0, 0))
+        screen.fill(BLACK)
         rect = draw_centered_text(
             screen, "Game Over", size=36, color=(255, 0, 0))
         rect = draw_centered_text_below(
-            screen, f"Score: {self._game.score}", rect)
+            screen, f"Score: {self._game.score}", rect, color=GREEN)
         rect = draw_centered_text_below(
-            screen, f"Bullets used: {self._game.bullets_used}", rect)
+            screen, f"Bullets used: {self._game.bullets_used}", rect, color=GREEN)
         rect = draw_centered_text_below(
             screen, "Press ENTER to start a new game", rect)
         rect = draw_centered_text_below(

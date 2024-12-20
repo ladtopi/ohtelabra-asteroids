@@ -4,6 +4,7 @@ import pygame
 from core import Game
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
 from graphics import draw_centered_text, draw_text
+from graphics.colors import BLACK, GREEN
 
 from .base import BaseGameState, GameState
 
@@ -41,7 +42,7 @@ class PlayingState(BaseGameState):
             self.request_transition(GameState.GAME_OVER)
 
     def draw(self, screen):
-        screen.fill((0, 0, 0))
+        screen.fill(BLACK)
         self._game.objects.draw(screen)
         self._render_lives(screen)
         self._render_bullets(screen)
@@ -50,16 +51,20 @@ class PlayingState(BaseGameState):
 
     def _render_lives(self, screen):
         draw_text(
-            screen, f"Ships: {self._game.ships_remaining}", (10, 10))
+            screen, f"Ships: {self._game.ships_remaining}", (10, 10), color=GREEN)
 
     def _render_bullets(self, screen):
         draw_text(
-            screen, f"Bullets: {self._game.bullets_remaining}", (10, 34))
+            screen, f"Bullets: {self._game.bullets_remaining}", (10, 34), color=GREEN)
 
     def _render_asteroids(self, screen):
         # conveneince for development
         draw_centered_text(
-            screen, f"Asteroids: {self._game.asteroids_remaining}", 10)
+            screen, f"Asteroids: {self._game.asteroids_remaining}", 10, color=GREEN)
 
     def _render_score(self, screen):
-        draw_text(screen, f"Score: {self._game.score}", (-10, 10))
+        draw_text(
+            screen,
+            f"Score: {self._game.score}",
+            (-10, 10),
+            color=GREEN)

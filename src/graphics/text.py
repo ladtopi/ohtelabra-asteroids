@@ -1,7 +1,9 @@
 import pygame
 
+from graphics.colors import WHITE
 
-def draw_text(screen, text, pos, size=24, color=(255, 255, 255)):
+
+def draw_text(screen, text, pos, size=24, color=WHITE):
     font = pygame.font.SysFont(None, size)
     text = font.render(text, True, color)
     x, y = pos
@@ -12,7 +14,7 @@ def draw_text(screen, text, pos, size=24, color=(255, 255, 255)):
     return screen.blit(text, (x, y))
 
 
-def draw_text_below(screen, text, rect, margin=10, size=24, color=(255, 255, 255)):
+def draw_text_below(screen, text, rect, margin=10, size=24, color=WHITE):
     x, y = rect.topleft
     y += rect.height + margin
     return draw_text(screen, text, (x, y), size, color)
@@ -24,12 +26,12 @@ def draw_centered(screen, surf, y=None):
     return screen.blit(surf, (x, y))
 
 
-def draw_centered_text(screen, text, y=None, size=24, color=(255, 255, 255)):
+def draw_centered_text(screen, text, y=None, size=24, color=WHITE):
     font = pygame.font.SysFont(None, size)
     text = font.render(text, True, color)
     return draw_centered(screen, text, y)
 
 
-def draw_centered_text_below(screen, text, rect, margin=10, size=24, color=(255, 255, 255)):
+def draw_centered_text_below(screen, text, rect, margin=10, size=24, color=WHITE):
     top = rect.bottom + margin
     return draw_centered_text(screen, text, y=top, size=size, color=color)

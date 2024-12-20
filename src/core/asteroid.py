@@ -1,16 +1,21 @@
 import random
+
 import pygame
 import pygame.gfxdraw
 
 from core.space_object import SpaceObject
+from graphics.colors import WHITE
 
-ASTEROID_IMAGE = pygame.Surface((70, 70), pygame.SRCALPHA)
-pygame.gfxdraw.filled_circle(ASTEROID_IMAGE, 35, 35, 34, (180, 220, 220))
+IMAGES = [pygame.Surface((d, d), pygame.SRCALPHA) for d in [0, 30, 50, 70]]
+for surf in IMAGES:
+    d = surf.get_width()
+    pygame.draw.circle(surf,
+                       center=(d/2, d/2),
+                       radius=d//2-1,
+                       color=WHITE,
+                       width=2)
 ASTEROID_INIT_SIZE = 3
 FRAGMENTS = 2
-
-IMAGES = [pygame.transform.scale_by(ASTEROID_IMAGE, factor) for factor in [
-    0, 0.33, 0.67, 1]]
 REWARDS = [0, 25, 100, 250]
 
 
