@@ -1,6 +1,7 @@
 import pygame
 import pygame.gfxdraw
 
+from config import config
 from core.bullet import Bullet
 from core.space_object import INF, UP, SpaceObject
 
@@ -8,8 +9,6 @@ SHIP_SIZE = 40
 SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
 pygame.gfxdraw.filled_trigon(SHIP_IMAGE, 0, SHIP_SIZE, SHIP_SIZE //
                              2, 0, SHIP_SIZE, SHIP_SIZE, (255, 255, 255))
-SHIP_MAX_SPEED = 10
-SHIP_BULLETS = 50
 
 
 class Ship(SpaceObject):
@@ -17,11 +16,18 @@ class Ship(SpaceObject):
     Class representing the player's ship.
     """
 
-    def __init__(self, acceleration=.25, friction=.01, **kwargs):
+    def __init__(
+            self,
+            acceleration=.25,
+            friction=.01,
+            max_speed=config.ship_max_speed,
+            bullets=config.ship_bullets,
+            **kwargs):
         super().__init__(**kwargs, image=SHIP_IMAGE)
         self._acceleration = acceleration
         self._friction = friction
-        self._bullets = SHIP_BULLETS
+        self._bullets = bullets
+        self._max_speed = max_speed
 
     @property
     def bullets_remaining(self):
@@ -31,7 +37,7 @@ class Ship(SpaceObject):
         """
         Accelerates the ship in the direction it is facing.
         """
-        if self._velocity.length() < SHIP_MAX_SPEED:
+        if self._velocity.length() < self._max_speed:
             self._velocity += UP.rotate(self.angle) * self._acceleration
 
     def update(self, area=(INF, INF)):

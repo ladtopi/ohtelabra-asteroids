@@ -3,13 +3,12 @@ import random
 import pygame
 
 from cartesian import random_coords
+from config import config
 from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP, EventQueue
 
 from .asteroid import Asteroid
 from .bullet import Bullet
 from .ship import Ship
-
-INITIAL_WAVE_SIZE = 3
 
 
 class Game:
@@ -65,7 +64,7 @@ class Game:
         """
         self.waves += 1
         asteroids = []
-        for _ in range(INITIAL_WAVE_SIZE + (self.waves // 2)):
+        for _ in range(config.initial_wave_size + (self.waves // 2)):
             w, h = self.display.get_size()
             x, y = random_coords((w, h), (self.ship.x, self.ship.y, 0, 0), 100)
             vx = random.uniform(0.5, 2)

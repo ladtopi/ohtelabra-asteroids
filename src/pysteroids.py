@@ -1,6 +1,7 @@
 import pygame
 
 from collisions import CollisionChecker
+from config import config
 from core.game import Game
 from db import Database
 from leaderboard import Leaderboard
@@ -13,7 +14,7 @@ from state.submit_score import SubmitScoreState
 
 
 class Pysteroids:
-    def __init__(self, w=800, h=600):
+    def __init__(self, w=config.window_width, h=config.window_height):
         pygame.init()
         pygame.display.set_caption("Pysteroids")
         pygame.display.set_mode((w, h))

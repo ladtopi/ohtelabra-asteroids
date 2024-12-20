@@ -1,7 +1,7 @@
 import unittest
 
 from core.bullet import Bullet
-from core.ship import SHIP_MAX_SPEED, Ship
+from core.ship import Ship
 
 
 class DisplayStub:
@@ -35,12 +35,12 @@ class TestShip(unittest.TestCase):
         self.assertAlmostEqual(self.ship.vy, .3)
 
     def test_thrust_does_nothing_if_already_at_max_speed(self):
-        self.ship = Ship(acceleration=1, velocity=(0, SHIP_MAX_SPEED))
+        self.ship = Ship(acceleration=1, velocity=(0, 5), max_speed=5)
         self.ship.rotate_right(180)
         self.ship.thrust()
         self.ship.thrust()
         self.ship.thrust()
-        self.assertAlmostEqual(self.ship.speed, SHIP_MAX_SPEED)
+        self.assertAlmostEqual(self.ship.speed, 5)
 
     def test_fire_creates_a_new_bullet(self):
         self.assertTrue(isinstance(self.ship.fire(), Bullet))
@@ -51,5 +51,5 @@ class TestShip(unittest.TestCase):
         self.assertAlmostEqual(bullet.angle, self.ship.angle)
 
     def test_fire_returns_none_if_no_bullets_remain(self):
-        self.ship._bullets = 0
+        self.ship = Ship(bullets=0)
         self.assertIsNone(self.ship.fire())
