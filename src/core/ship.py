@@ -8,8 +8,8 @@ from graphics.colors import WHITE
 
 SHIP_IMAGE = pygame.Surface((40, 40), pygame.SRCALPHA)
 pygame.draw.polygon(SHIP_IMAGE,
-                    points=[(0, 38), (19, 0), (38, 38)],
-                    width=2,
+                    points=[(0, 38), (18, 0), (38, 38)],
+                    width=3,
                     color=WHITE)
 
 

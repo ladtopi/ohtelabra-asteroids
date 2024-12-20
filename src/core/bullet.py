@@ -4,7 +4,7 @@ import pygame.gfxdraw
 from core.space_object import INF, SpaceObject
 from graphics.colors import WHITE
 
-BULLET_IMAGE = pygame.Surface((4, 4), pygame.SRCALPHA)
+BULLET_IMAGE = pygame.Surface((4, 5), pygame.SRCALPHA)
 pygame.gfxdraw.box(BULLET_IMAGE, BULLET_IMAGE.get_rect(), WHITE)
 
 

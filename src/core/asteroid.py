@@ -11,8 +11,8 @@ for surf in IMAGES:
     d = surf.get_width()
     pygame.draw.circle(surf,
                        center=(d/2, d/2),
-                       radius=d//2-1,
-                       width=2,
+                       radius=d//2,
+                       width=3,
                        color=WHITE)
 ASTEROID_INIT_SIZE = 3
 FRAGMENTS = 2
