@@ -2,7 +2,7 @@ import pygame
 
 from events import EventQueue
 from keyboard import Keyboard
-from state import BaseGameState, GameState
+from view import BaseGameView, GameViewState
 
 
 class GameLoop:
@@ -12,8 +12,8 @@ class GameLoop:
     """
 
     def __init__(self,
-                 state_map: dict[GameState, BaseGameState],
-                 starting_state: GameState,
+                 state_map: dict[GameViewState, BaseGameView],
+                 starting_state: GameViewState,
                  screen: pygame.Surface,
                  event_queue=EventQueue(),
                  keyboard=Keyboard(),

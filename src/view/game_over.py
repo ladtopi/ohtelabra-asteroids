@@ -5,10 +5,11 @@ from core import Game
 from graphics import draw_centered_text, draw_centered_text_below
 from graphics.colors import BLACK, GREEN
 
-from .base import BaseGameState, GameState
+from .base import BaseGameView
+from .state import GameViewState
 
 
-class GameOverState(BaseGameState):
+class GameOverView(BaseGameView):
     def __init__(self, game: Game):
         super().__init__()
         self._game = game
@@ -17,9 +18,9 @@ class GameOverState(BaseGameState):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    self.request_transition(GameState.PLAYING)
+                    self.request_transition(GameViewState.PLAYING)
                 if event.key == pygame.K_SPACE:
-                    self.request_transition(GameState.SUBMIT_SCORE)
+                    self.request_transition(GameViewState.SUBMIT_SCORE)
 
     def draw(self, screen):
         screen.fill(BLACK)

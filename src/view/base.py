@@ -1,14 +1,4 @@
-from enum import Enum, auto
-
-
-class GameState(Enum):
-    MENU = auto()
-    PLAYING = auto()
-    GAME_OVER = auto()
-    SUBMIT_SCORE = auto()
-
-
-class BaseGameState:
+class BaseGameView:
     def __init__(self):
         self._next = None
 

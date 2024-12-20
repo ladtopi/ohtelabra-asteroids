@@ -6,11 +6,11 @@ from unittest.mock import Mock
 import pygame
 
 from loop import GameLoop
-from state.base import BaseGameState
+from view.base import BaseGameView
 from tests._stubs import DisplayStub, EventQueueStub, KeyboardStub
 
 
-class GameStateStub(BaseGameState):
+class GameStateStub(BaseGameView):
     pass
 
 

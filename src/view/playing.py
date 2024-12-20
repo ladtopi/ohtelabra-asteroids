@@ -6,10 +6,11 @@ from events import EVENT_SPAWN_ASTEROID_WAVE, EVENT_SPAWN_SHIP
 from graphics import draw_centered_text, draw_text
 from graphics.colors import BLACK, GREEN
 
-from .base import BaseGameState, GameState
+from .base import BaseGameView
+from .state import GameViewState
 
 
-class PlayingState(BaseGameState):
+class PlayingView(BaseGameView):
     def __init__(self, game: Game):
         super().__init__()
         self._game = game
@@ -42,7 +43,7 @@ class PlayingState(BaseGameState):
     def update(self, time_delta):
         self._game.update(time_delta)
         if self._game.is_game_over():
-            self.request_transition(GameState.GAME_OVER)
+            self.request_transition(GameViewState.GAME_OVER)
 
     def draw(self, screen):
         screen.fill(BLACK)

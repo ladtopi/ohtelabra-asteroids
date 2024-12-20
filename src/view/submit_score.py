@@ -8,10 +8,11 @@ from graphics.colors import BLACK, WHITE, GREEN
 from graphics.text import FONTS
 from leaderboard import Leaderboard, LeaderboardEntry
 
-from .base import BaseGameState, GameState
+from .base import BaseGameView
+from .state import GameViewState
 
 
-class SubmitScoreState(BaseGameState):
+class SubmitScoreView(BaseGameView):
     def __init__(self, game: Game, leaderboard: Leaderboard):
         super().__init__()
         self._game = game
@@ -43,7 +44,7 @@ class SubmitScoreState(BaseGameState):
             LeaderboardEntry(name=name,
                              score=self._game.score,
                              bullets_used=self._game.bullets_used))
-        self.request_transition(GameState.MENU)
+        self.request_transition(GameViewState.MENU)
 
     def draw(self, screen):
         screen.fill(BLACK)

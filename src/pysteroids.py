@@ -6,11 +6,11 @@ from core.game import Game
 from db import Database
 from leaderboard import Leaderboard
 from loop import GameLoop
-from state.base import GameState
-from state.game_over import GameOverState
-from state.menu import MenuState
-from state.playing import PlayingState
-from state.submit_score import SubmitScoreState
+from view.state import GameViewState
+from view.game_over import GameOverView
+from view.menu import MenuView
+from view.playing import PlayingView
+from view.submit_score import SubmitScoreView
 
 
 class Pysteroids:
@@ -25,16 +25,16 @@ class Pysteroids:
         game = Game(collision_checker=CollisionChecker(), display=screen)
         leaderboard = Leaderboard(Database())
         state_map = {
-            GameState.MENU: MenuState(leaderboard),
-            GameState.PLAYING: PlayingState(game),
-            GameState.GAME_OVER: GameOverState(game),
-            GameState.SUBMIT_SCORE: SubmitScoreState(game, leaderboard),
+            GameViewState.MENU: MenuView(leaderboard),
+            GameViewState.PLAYING: PlayingView(game),
+            GameViewState.GAME_OVER: GameOverView(game),
+            GameViewState.SUBMIT_SCORE: SubmitScoreView(game, leaderboard),
         }
 
         return GameLoop(
             state_map=state_map,
             screen=screen,
-            starting_state=GameState.MENU,
+            starting_state=GameViewState.MENU,
             frame_callback=pygame.display.flip)
 
     def run(self):

@@ -5,10 +5,11 @@ from graphics import draw_centered_text, draw_centered_text_below
 from graphics.colors import BLACK
 from leaderboard import Leaderboard
 
-from .base import BaseGameState, GameState
+from .base import BaseGameView
+from .state import GameViewState
 
 
-class MenuState(BaseGameState):
+class MenuView(BaseGameView):
     def __init__(self, leaderboard: Leaderboard):
         super().__init__()
         self._leaderboard = leaderboard
@@ -17,7 +18,7 @@ class MenuState(BaseGameState):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    self.request_transition(GameState.PLAYING)
+                    self.request_transition(GameViewState.PLAYING)
 
     def next(self):
         return self._next
