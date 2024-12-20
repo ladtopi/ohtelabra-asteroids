@@ -124,3 +124,26 @@ class TestGame(unittest.TestCase):
         self.game.kill_ship()
         ship = self.game.spawn_ship()
         self.assertEqual(self.game.ship, ship)
+
+    def test_immortal_ship_can_not_collide(self):
+        asteroid = Asteroid(position=self.game.ship.position)
+        self.collision_checker.get_collision.return_value = asteroid
+        self.game.place_asteroid(asteroid)
+
+        self.game.ship.make_immortal(2)
+        self.game.update(1)
+
+        # the ship should be immortal, and the ship and asteroid should be alive
+        self.assertFalse(self.game.ship.mortal)
+        self.assertTrue(self.game.ship.alive())
+        self.assertTrue(asteroid.alive())
+
+    def test_immortal_ship_becomes_mortal_after_timeout(self):
+        asteroid = Asteroid(position=self.game.ship.position)
+        self.collision_checker.get_collision.return_value = asteroid
+        self.game.place_asteroid(asteroid)
+
+        self.game.ship.make_immortal(2)
+        self.game.update(3)
+
+        self.assertTrue(self.game.ship.mortal)

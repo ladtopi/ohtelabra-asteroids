@@ -18,34 +18,59 @@ class Ship(SpaceObject):
 
     def __init__(
             self,
-            acceleration=.25,
-            friction=.01,
+            acceleration=10,
+            friction=0.25,
             max_speed=config.ship_max_speed,
             bullets=config.ship_bullets,
+            immortal_for=0,
             **kwargs):
         super().__init__(**kwargs, image=SHIP_IMAGE)
         self._acceleration = acceleration
         self._friction = friction
         self._bullets = bullets
         self._max_speed = max_speed
+        self._immortal_for = immortal_for
 
     @property
     def bullets_remaining(self):
         return self._bullets
 
+    @property
+    def immortal(self):
+        return self._immortal_for > 0
+
+    @property
+    def mortal(self):
+        return not self.immortal
+
+    def make_immortal(self, seconds):
+        self._immortal_for = seconds
+
     def thrust(self):
         """
         Accelerates the ship in the direction it is facing.
         """
-        if self._velocity.length() < self._max_speed:
-            self._velocity += UP.rotate(self.angle) * self._acceleration
+        self._velocity += UP.rotate(self.angle) * self._acceleration
+        self._velocity.scale_to_length(
+            min(self._velocity.length(),
+                self._max_speed))
 
-    def update(self, area=(INF, INF)):
+    def update(self, area=(INF, INF), time_delta=1):
         """
         Updates the ship's position, velocity, and direction.
         """
-        self._velocity *= 1 - self._friction
-        super().update(area)
+        self._velocity *= (1 - self._friction) ** time_delta
+        self._immortal_for = max(0, self._immortal_for - time_delta)
+        super().update(area=area, time_delta=time_delta)
+        self._blink()
+
+    def _blink(self):
+        """
+        Blinks the ship to signal that it's immortal
+        """
+        if self.immortal:
+            hundreds_of_ms = round(self._immortal_for * 1000, -2)
+            self._image.set_alpha(255 if hundreds_of_ms % 400 == 0 else 100)
 
     def fire(self):
         """

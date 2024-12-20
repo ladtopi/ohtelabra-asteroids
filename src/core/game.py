@@ -78,7 +78,7 @@ class Game:
             )
         return asteroids
 
-    def spawn_ship(self):
+    def spawn_ship(self, immortal=False):
         """
         Spawns a new ship in the game.
         """
@@ -86,6 +86,8 @@ class Game:
             return None
         w, h = self.display.get_size()
         self.ship = Ship(position=(w/2, h/2))
+        if immortal:
+            self.ship.make_immortal(2)
         self.objects.add(self.ship)
         return self.ship
 

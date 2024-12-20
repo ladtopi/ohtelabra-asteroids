@@ -16,7 +16,7 @@ class PlayingState(BaseGameState):
     def handle_events(self, events):
         for event in events:
             if event.type == EVENT_SPAWN_SHIP:
-                self._game.spawn_ship()
+                self._game.spawn_ship(immortal=True)
             if event.type == EVENT_SPAWN_ASTEROID_WAVE:
                 self._game.spawn_asteroid_wave()
             if event.type == pygame.KEYDOWN:
