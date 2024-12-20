@@ -6,10 +6,11 @@ from core.bullet import Bullet
 from core.space_object import INF, UP, SpaceObject
 from graphics.colors import WHITE
 
-SHIP_SIZE = 40
-SHIP_IMAGE = pygame.Surface((SHIP_SIZE, SHIP_SIZE), pygame.SRCALPHA)
-pygame.gfxdraw.filled_trigon(SHIP_IMAGE, 0, SHIP_SIZE, SHIP_SIZE //
-                             2, 0, SHIP_SIZE, SHIP_SIZE, WHITE)
+SHIP_IMAGE = pygame.Surface((40, 40), pygame.SRCALPHA)
+pygame.draw.polygon(SHIP_IMAGE,
+                    points=[(0, 38), (19, 0), (38, 38)],
+                    width=2,
+                    color=WHITE)
 
 
 class Ship(SpaceObject):
