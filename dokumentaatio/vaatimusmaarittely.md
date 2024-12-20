@@ -20,7 +20,7 @@ Tavoitteena projektissa on tehdä klooni arcade-peliklassikosta Asteroids. [Aste
 
 Näistä toteutetaan ajan salliessa mahdollisimman monta. Lisääkin ajatuksia saattaa muotoutua myöhemmin.
 
-- Leaderboard, jossa voi vertailla itseään muihin pelaajiin.
+- Leaderboard, jossa voi vertailla itseään muihin pelaajiin. ✅
 - Pelissä on äänitehosteita, jotka tekevät pelaamisesta miellyttävämpää.
 - Asteroidien keskimääräinen nopeus kasvaa pelin edetessä. Tämä lisää pelin haastetta.
 - Asteroidien määrä aaltoa kohti kasvaa pelin edetessä. Tämä lisää pelin haastetta. ✅
