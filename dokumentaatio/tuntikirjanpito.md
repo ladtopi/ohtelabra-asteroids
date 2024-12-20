@@ -11,4 +11,8 @@
 | 29.11. | 7    | Uusien asteroidiaaltojen generointi, rakenteellista parantelua                   |
 | 9.12.  | 4    | Joustavamman tilanhallinnan pohtimista, jotta peliin saadaan menu ja leaderboard |
 | 10.12. | 2    | Pelaajalle rajalliset ammukset, dokumentaation päivittelyä                       |
-|  yht   | 37   |                                                                                  |
+| 11.12. | 5    | Tuki usealle pelinäkymälle ja alkeellinen leaderboard                            |
+| 13.12. | 4    | Refaktorointia, testausta ja bugikorjauksia                                      |
+| 19.12. | 1    | Lisää testejä                                                                    |
+| 20.12. | 6    | Pelin ulkoasun parantelua, rakenteellista hiomista ja dokumentaatiota            |
+|  yht   | 53   |                                                                                  |
