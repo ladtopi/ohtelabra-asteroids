@@ -35,8 +35,8 @@ class PlayingState(BaseGameState):
         if keys[pygame.K_LEFT]:
             self._game.rotate_ship_left()
 
-    def update(self):
-        self._game.update()
+    def update(self, time_delta):
+        self._game.update(time_delta)
         if self._game.is_game_over():
             self.request_transition(GameState.GAME_OVER)
 

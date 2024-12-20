@@ -58,7 +58,7 @@ class Ship(SpaceObject):
             self._bullets -= 1
             return Bullet(
                 position=self._position,
-                velocity=self._velocity + UP.rotate(self.angle)*8,
+                velocity=self._velocity + UP.rotate(self.angle)*600,
                 angle=self.angle,
             )
         return None

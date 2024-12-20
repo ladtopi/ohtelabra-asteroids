@@ -12,20 +12,20 @@ class Bullet(SpaceObject):
     Class representing a bullet in the game.
     """
 
-    def __init__(self, ttl=50, **kwargs):
+    def __init__(self, ttl=.75, **kwargs):
         super().__init__(**kwargs, image=BULLET_IMAGE)
         self._ttl = ttl
 
     @property
     def ttl(self):
         """
-        Time to live (in frames) for the bullet.
+        Time to live (in seconds) for the bullet.
         """
         return self._ttl
 
-    def update(self, area=(INF, INF)):
-        super().update(area)
+    def update(self, area=(INF, INF), time_delta=1.0):
+        super().update(area=area, time_delta=time_delta)
         if self._ttl > 0:
-            self._ttl -= 1
+            self._ttl -= time_delta
         else:
             self.kill()

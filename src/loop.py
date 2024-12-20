@@ -46,7 +46,7 @@ class GameLoop:
             self._handle_keys()
             if state := self._state.next():
                 self._move_to(state)
-            self._state.update()
+            self._state.update(self._clock.get_time() / 1000)
             self._state.draw(self._screen)
             self._frame_cb()
             self._clock.tick(60)

@@ -125,11 +125,11 @@ class SpaceObject(pygame.sprite.Sprite):
             self._image_original, -self.angle)
         self._rect = self.image.get_rect(center=self.rect.center)
 
-    def update(self, area=(INF, INF)):
+    def update(self, area=(INF, INF), time_delta=1):
         """
         Update the position of the object based on its velocity and acceleration.
         """
-        self._position += self._velocity
+        self._position += self._velocity * time_delta
         self._screen_wrap(area)
         self._rect.center = self._position
 

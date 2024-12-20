@@ -67,8 +67,8 @@ class Game:
         for _ in range(config.initial_wave_size + (self.waves // 2)):
             w, h = self.display.get_size()
             x, y = random_coords((w, h), (self.ship.x, self.ship.y, 0, 0), 100)
-            vx = random.uniform(0.5, 2)
-            vy = random.uniform(0.5, 2)
+            vx = random.uniform(40, 60)
+            vy = random.uniform(40, 60)
             if random.choice([True, False]):
                 vx *= -1
             if random.choice([True, False]):
@@ -168,14 +168,14 @@ class Game:
                 self.kill_bullet(bullet)
                 self.explode_asteroid(asteroid)
 
-        if self.ship.alive():
+        if self.ship.alive() and self.ship.mortal:
             if asteroid := self.collision_checker.get_collision(self.ship, self.asteroids):
                 self.kill_ship()
                 self.explode_asteroid(asteroid)
 
-    def update(self):
+    def update(self, time_delta=1.0):
         """
         Updates all objects (positions, velocities, etc) in the game.
         """
         self.handle_collisions()
-        self.objects.update(self.display.get_size())
+        self.objects.update(self.display.get_size(), time_delta)

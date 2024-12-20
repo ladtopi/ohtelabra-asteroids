@@ -67,7 +67,7 @@ class BaseGameState:
         """
         # Implement as required
 
-    def update(self):
+    def update(self, time_delta):
         """
         Routine for updating the state.
         """

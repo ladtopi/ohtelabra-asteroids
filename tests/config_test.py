@@ -10,7 +10,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.window_width, 800)
         self.assertEqual(config.window_height, 600)
         self.assertEqual(config.initial_wave_size, 3)
-        self.assertEqual(config.ship_max_speed, 10)
+        self.assertEqual(config.ship_max_speed, 400)
         self.assertEqual(config.ship_bullets, 50)
 
     def test_config_overrides(self):
