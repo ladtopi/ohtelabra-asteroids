@@ -14,6 +14,9 @@ class PlayingState(BaseGameState):
         super().__init__()
         self._game = game
 
+    def reset(self):
+        self._game.reset()
+
     def handle_events(self, events):
         for event in events:
             if event.type == EVENT_SPAWN_SHIP:
