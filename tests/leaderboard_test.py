@@ -24,7 +24,7 @@ class TestLeaderboard(unittest.TestCase):
         ]
         for entry in entries:
             self.leaderboard.add_entry(entry)
-        top_10 = self.leaderboard.get_top_10()
+        top_10 = self.leaderboard.get_top_list()
 
         self.assertCountEqual(top_10, entries)
 
@@ -36,7 +36,7 @@ class TestLeaderboard(unittest.TestCase):
         ]
         for entry in entries:
             self.leaderboard.add_entry(entry)
-        top_10 = self.leaderboard.get_top_10()
+        top_10 = self.leaderboard.get_top_list()
 
         self.assertEqual(top_10, sorted(
             entries, key=lambda e: e.score, reverse=True))

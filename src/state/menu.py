@@ -30,6 +30,6 @@ class MenuState(BaseGameState):
 
     def _draw_leaderboard(self, screen):
         rect = draw_text(screen, "Leaderboard", (-10, 10))
-        for entry in self._leaderboard.get_top_10():
+        for entry in self._leaderboard.get_top_list():
             rect = draw_text_below(
                 screen, f"{entry.name}: {entry.score}", rect, margin=10)

@@ -17,6 +17,6 @@ class Leaderboard:
         self._db.exec("INSERT INTO leaderboard (name, score, bullets) VALUES (?, ?, ?)",
                       entry.name, entry.score, entry.bullets_used)
 
-    def get_top_10(self):
+    def get_top_list(self):
         return [LeaderboardEntry(*entry) for entry in self._db.fetchall(
-            "SELECT name, score, bullets FROM leaderboard ORDER BY score DESC LIMIT 10")]
+            "SELECT name, score, bullets FROM leaderboard ORDER BY score DESC LIMIT 5")]
