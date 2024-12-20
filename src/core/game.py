@@ -67,8 +67,8 @@ class Game:
         for _ in range(config.initial_wave_size + (self.waves // 2)):
             w, h = self.display.get_size()
             x, y = random_coords((w, h), (self.ship.x, self.ship.y, 0, 0), 100)
-            vx = random.uniform(40, 60)
-            vy = random.uniform(40, 60)
+            vx = random.uniform(40, 80)
+            vy = random.uniform(40, 80)
             if random.choice([True, False]):
                 vx *= -1
             if random.choice([True, False]):
