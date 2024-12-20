@@ -20,6 +20,7 @@ def __get_font(size):
 
 
 FONTS = defaultdict(lambda: __get_font(18))
+FONTS["xs"] = __get_font(12)
 FONTS["sm"] = __get_font(16)
 FONTS["md"] = __get_font(20)
 FONTS["lg"] = __get_font(24)
@@ -35,7 +36,7 @@ def draw_text(screen, text, pos, size="sm", color=WHITE):
     return screen.blit(text, (x, y))
 
 
-def draw_text_below(screen, text, rect, margin=10, size=24, color=WHITE):
+def draw_text_below(screen, text, rect, margin=10, size="sm", color=WHITE):
     x, y = rect.topleft
     y += rect.height + margin
     return draw_text(screen, text, (x, y), size, color)
@@ -52,6 +53,6 @@ def draw_centered_text(screen, text, y=None, size="sm", color=WHITE):
     return draw_centered(screen, text, y)
 
 
-def draw_centered_text_below(screen, text, rect, margin=10, size=24, color=WHITE):
+def draw_centered_text_below(screen, text, rect, margin=10, size="sm", color=WHITE):
     top = rect.bottom + margin
     return draw_centered_text(screen, text, y=top, size=size, color=color)

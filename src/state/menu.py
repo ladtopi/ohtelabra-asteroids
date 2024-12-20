@@ -1,9 +1,8 @@
 
 import pygame
 
-from graphics import (draw_centered_text, draw_centered_text_below, draw_text,
-                      draw_text_below)
-from graphics.colors import BLACK, GREEN
+from graphics import draw_centered_text, draw_centered_text_below
+from graphics.colors import BLACK
 from leaderboard import Leaderboard
 
 from .base import BaseGameState, GameState
@@ -25,17 +24,14 @@ class MenuState(BaseGameState):
 
     def draw(self, screen):
         screen.fill(BLACK)
-        title_rect = draw_centered_text(
+        rect = draw_centered_text(
             screen, "Asteroids", size="lg", color=(255, 0, 0))
-        draw_centered_text_below(screen, "Press ENTER to start", title_rect)
-        self._draw_leaderboard(screen)
-
-    def _draw_leaderboard(self, screen):
-        rect = draw_text(screen, "Leaderboard", (-10, 10), color=GREEN)
+        rect = draw_centered_text_below(screen, "Press ENTER to start", rect)
+        rect = draw_centered_text(
+            screen, "Leaderboard", y=10)
         for entry in self._leaderboard.get_top_list():
-            rect = draw_text_below(
+            rect = draw_centered_text_below(
                 screen,
                 f"{entry.name}: {entry.score}",
                 rect,
-                margin=10,
-                color=GREEN,)
+                margin=10)
