@@ -1,5 +1,3 @@
-from turtle import Screen
-
 import pygame
 
 from collisions import CollisionChecker

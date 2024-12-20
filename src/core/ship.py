@@ -55,3 +55,4 @@ class Ship(SpaceObject):
                 velocity=self._velocity + UP.rotate(self.angle)*8,
                 angle=self.angle,
             )
+        return None

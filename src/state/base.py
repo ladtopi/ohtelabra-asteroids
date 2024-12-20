@@ -13,26 +13,62 @@ class BaseGameState:
         self._next = None
 
     def request_transition(self, state):
+        """
+        Requests transition to the specifieed state.
+
+        Args:
+            state: The state to transition to.
+        """
         self._next = state
 
     def enter(self):
+        """
+        Called when the state is entered.
+        """
         self._next = None
         self.reset()
 
     def reset(self):
-        pass
+        """
+        Resets the state (on entering)
+        """
+        # Implement as required
 
     def next(self):
+        """
+        Returns the next state to transition to.
+        """
         return self._next
 
     def draw(self, screen):
-        pass
+        """
+        Draws the state tot the screen.
+
+        Args:
+            screen: The pygame Surface to draw to.
+        """
+        # Implement as required
 
     def handle_events(self, events):
-        pass
+        """
+        Handles events.
+
+        Args:
+            events: A list of pygame events.
+        """
+        # Implement as required
 
     def handle_keys(self, keys):
-        pass
+        """
+        Handles key presses.
+
+        Args:
+            keys: A dictionary of key states.
+        """
+        # Implement as required
 
     def update(self):
-        pass
+        """
+        Routine for updating the state.
+        """
+        # Implement as required

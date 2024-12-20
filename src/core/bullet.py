@@ -18,6 +18,9 @@ class Bullet(SpaceObject):
 
     @property
     def ttl(self):
+        """
+        Time to live (in frames) for the bullet.
+        """
         return self._ttl
 
     def update(self, area=(INF, INF)):

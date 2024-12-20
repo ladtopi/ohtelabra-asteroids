@@ -21,18 +21,13 @@ class SubmitScoreState(BaseGameState):
             cursor_color=(255, 255, 255),
             cursor_width=12)
 
-    def reset(self):
-        self._name_input.value = ""
-
     def handle_events(self, events):
         self._name_input.update(events)
         self._uppercase_input()
 
         for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    if self._submit_score():
-                        self.request_transition(GameState.MENU)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                self._submit_score()
 
     def _uppercase_input(self):
         self._name_input.value = self._name_input.value.upper()
@@ -40,12 +35,12 @@ class SubmitScoreState(BaseGameState):
     def _submit_score(self):
         name = self._name_input.value
         if len(name) < 3:
-            return False
+            return
         self._leaderboard.add_entry(
             LeaderboardEntry(name=name,
                              score=self._game.score,
                              bullets_used=self._game.bullets_used))
-        return True
+        self.request_transition(GameState.MENU)
 
     def draw(self, screen):
         screen.fill((0, 0, 0))

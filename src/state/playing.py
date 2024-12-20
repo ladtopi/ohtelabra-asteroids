@@ -43,23 +43,23 @@ class PlayingState(BaseGameState):
     def draw(self, screen):
         screen.fill((0, 0, 0))
         self._game.objects.draw(screen)
-        self.render_lives(screen)
-        self.render_bullets(screen)
-        self.render_asteroids(screen)
-        self.render_score(screen)
+        self._render_lives(screen)
+        self._render_bullets(screen)
+        self._render_asteroids(screen)
+        self._render_score(screen)
 
-    def render_lives(self, screen):
+    def _render_lives(self, screen):
         draw_text(
             screen, f"Ships: {self._game.ships_remaining}", (10, 10))
 
-    def render_bullets(self, screen):
+    def _render_bullets(self, screen):
         draw_text(
             screen, f"Bullets: {self._game.bullets_remaining}", (10, 34))
 
-    def render_asteroids(self, screen):
+    def _render_asteroids(self, screen):
         # conveneince for development
         draw_centered_text(
             screen, f"Asteroids: {self._game.asteroids_remaining}", 10)
 
-    def render_score(self, screen):
+    def _render_score(self, screen):
         draw_text(screen, f"Score: {self._game.score}", (-10, 10))

@@ -7,7 +7,8 @@ from state import BaseGameState, GameState
 
 class GameLoop:
     """
-    The main game loop that handles events, updates the game state, and renders the game.
+    The main game loop that handles events, updates the game state, and renders
+    the game.
     """
 
     def __init__(self,
@@ -36,7 +37,8 @@ class GameLoop:
 
     def run(self):
         """
-        Runs the main game loop, handling events, updating the game state, and rendering the game.
+        Runs the main game loop, handling events, updating the game state, and
+        rendering the game.
         """
         self._running = True
         while self._running:
